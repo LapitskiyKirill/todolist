@@ -1,0 +1,8 @@
+group 'com.gmail.kirilllapitsky'
+version '0.1'
+
+allprojects {
+    repositories {
+        mavenCentral()
+    }
+}
