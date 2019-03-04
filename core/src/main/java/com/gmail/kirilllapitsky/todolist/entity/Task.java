@@ -41,6 +41,12 @@ public class Task {
     public Task() {
     }
 
+    public Task(User user, String text) {
+        this.user = user;
+        this.text = text;
+        this.completed = false;
+    }
+
     public Task(User user, String text, LocalDateTime deadline, boolean completed, List<Task> subtasks, TaskCategory category) {
         this.user = user;
         this.text = text;

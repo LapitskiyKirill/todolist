@@ -8,5 +8,8 @@ public class NewTaskDto {
     public NewTaskDto() {
     }
 
+    public NewTaskDto(String text) {
+        this.text = text;
+    }
 }
 

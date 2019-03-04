@@ -2,7 +2,7 @@ package com.gmail.kirilllapitsky.todolist.entity;
 
 import javax.persistence.*;
 @Entity
-@Table(name = "value")
+@Table(name = "token")
 public class Token {
 
     @Id
@@ -20,8 +20,8 @@ public class Token {
     public Token() {
     }
 
-    public Token(String login, User user) {
-        this.value = login;
+    public Token(String value, User user) {
+        this.value = value;
         this.user = user;
     }
 

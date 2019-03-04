@@ -33,6 +33,8 @@ public class AuthenticationService {
         return new TokenDto(token.getValue());
     }
 
-
+    public User validate(String tokenValue){
+        return tokenRepository.findByValue(tokenValue).getUser();
+    }
 }
 
