@@ -1,16 +1,32 @@
 package com.gmail.kirilllapitsky.todolist.entity;
 
+import javax.persistence.*;
+import java.util.List;
+
+@Entity
+@Table(name = "\"user\"")
 public class User {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
+
+    @Column(name = "login")
     private String login;
-    private String password;
+
+    @Column(name = "hash")
+    private String hash;
+
+    @OneToMany(mappedBy = "user")
+    private List<Task> tasks;
 
     public User() {
     }
 
-    public User(String login, String password) {
+    public User(String login, String hash) {
         this.login = login;
-        this.password = password;
+        this.hash = hash;
     }
 
     public Long getId() {
@@ -30,10 +46,18 @@ public class User {
     }
 
     public String getPassword() {
-        return password;
+        return hash;
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.hash = password;
+    }
+
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
     }
 }

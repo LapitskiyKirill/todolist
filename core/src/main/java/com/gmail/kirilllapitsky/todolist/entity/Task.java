@@ -1,24 +1,53 @@
 package com.gmail.kirilllapitsky.todolist.entity;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
+@Entity
+@Table(name = "task")
 public class Task {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
-    private String category;
+
+    @Column(name = "text")
     private String text;
+
+    @Column(name = "deadline")
     private LocalDateTime deadline;
+
+    @Column(name = "completed")
     private boolean completed;
+
+    @ManyToMany
+    @JoinTable(
+            name = "main_task_subtask",
+            joinColumns = @JoinColumn(name = "subtask_id"),
+            inverseJoinColumns = @JoinColumn(name = "main_task_id")
+    )
+    private List<Task> subtasks;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private TaskCategory category;
 
     public Task() {
     }
 
-    public Task(User user, String category, String text, LocalDateTime deadline, boolean completed) {
+    public Task(User user, String text, LocalDateTime deadline, boolean completed, List<Task> subtasks, TaskCategory category) {
         this.user = user;
-        this.category = category;
         this.text = text;
         this.deadline = deadline;
         this.completed = completed;
+        this.subtasks = subtasks;
+        this.category = category;
     }
 
     public Long getId() {
@@ -35,14 +64,6 @@ public class Task {
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
     }
 
     public String getText() {
@@ -67,5 +88,21 @@ public class Task {
 
     public void setCompleted(boolean completed) {
         this.completed = completed;
+    }
+
+    public List<Task> getSubtasks() {
+        return subtasks;
+    }
+
+    public void setSubtasks(List<Task> subtasks) {
+        this.subtasks = subtasks;
+    }
+
+    public TaskCategory getCategory() {
+        return category;
+    }
+
+    public void setCategory(TaskCategory category) {
+        this.category = category;
     }
 }
