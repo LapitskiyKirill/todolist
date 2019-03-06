@@ -1,7 +1,7 @@
 package com.gmail.kirilllapitsky.todolist.dto;
 
 public class TokenDto {
-    String token;
+    public String token;
 
     public TokenDto() {
     }
