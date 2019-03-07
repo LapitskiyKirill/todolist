@@ -26,25 +26,19 @@ public class Task {
     @Column(name = "completed")
     private boolean completed;
 
-    @ManyToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "main_task_subtask",
-            joinColumns = @JoinColumn(name = "subtask_id"),
-            inverseJoinColumns = @JoinColumn(name = "main_task_id")
+            joinColumns = @JoinColumn(name = "main_task_id"),
+            inverseJoinColumns = @JoinColumn(name = "subtask_id")
     )
     private List<Task> subtasks;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "category_id")
     private TaskCategory category;
 
     public Task() {
-    }
-
-    public Task(User user, String text) {
-        this.user = user;
-        this.text = text;
-        this.completed = false;
     }
 
     public Task(User user, String text, LocalDateTime deadline, boolean completed, List<Task> subtasks, TaskCategory category) {

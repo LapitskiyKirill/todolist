@@ -2,19 +2,24 @@ package com.gmail.kirilllapitsky.todolist.controller;
 
 import com.gmail.kirilllapitsky.todolist.dto.NewTaskDto;
 import com.gmail.kirilllapitsky.todolist.dto.TaskDto;
+import com.gmail.kirilllapitsky.todolist.entity.Mapper;
+import com.gmail.kirilllapitsky.todolist.entity.Task;
 import com.gmail.kirilllapitsky.todolist.entity.User;
 import com.gmail.kirilllapitsky.todolist.exception.AuthenticationException;
 import com.gmail.kirilllapitsky.todolist.exception.NoSuchTaskException;
 import com.gmail.kirilllapitsky.todolist.service.AuthenticationService;
 import com.gmail.kirilllapitsky.todolist.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("task")
+@Transactional
 public class TaskController {
 
     @Autowired
@@ -26,7 +31,8 @@ public class TaskController {
     @PostMapping("create")
     public TaskDto create(@RequestHeader("token") String token, @RequestBody NewTaskDto newTaskDto) {
         User user = authenticationService.validate(token);
-        return taskService.create(user, newTaskDto);
+        Task task = taskService.create(user, newTaskDto);
+        return Mapper.map(task);
     }
 
     @GetMapping("delete")
@@ -44,10 +50,7 @@ public class TaskController {
     @GetMapping("getAll")
     public List<TaskDto> getAll(@RequestHeader("token") String token) {
         User user = authenticationService.validate(token);
-        return user.getTasks()
-                .stream()
-                .map(t -> new TaskDto(t.getId(), t.getCategory(), t.getText(), t.getDeadline(), t.isCompleted()))
-                .collect(Collectors.toList());
+        return taskService.all(user);
     }
 
     @PostMapping("check")

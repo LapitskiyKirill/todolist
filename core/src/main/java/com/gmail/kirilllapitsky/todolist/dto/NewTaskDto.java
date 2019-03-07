@@ -1,13 +1,13 @@
 package com.gmail.kirilllapitsky.todolist.dto;
 
-import com.gmail.kirilllapitsky.todolist.entity.TaskCategory;
-
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class NewTaskDto {
     public String text;
     public LocalDateTime deadline;
-    public TaskCategory category;
+    public String category;
+    public List<NewTaskDto> subTasks;
 
     public NewTaskDto() {
     }
