@@ -8,14 +8,14 @@ public class TaskDto {
     public String category;
     public String text;
     public LocalDateTime deadline;
-    public boolean completed;
+    public LocalDateTime completed;
     public List<TaskDto> subtasks;
 
     public TaskDto() {
 
     }
 
-    public TaskDto(Long id, String category, String text, LocalDateTime deadline, boolean completed, List<TaskDto> subtasks) {
+    public TaskDto(Long id, String category, String text, LocalDateTime deadline, LocalDateTime completed, List<TaskDto> subtasks) {
         this.id = id;
         this.category = category;
         this.text = text;

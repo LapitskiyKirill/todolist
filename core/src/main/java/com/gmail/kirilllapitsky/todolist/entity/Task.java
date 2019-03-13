@@ -24,7 +24,7 @@ public class Task {
     private LocalDateTime deadline;
 
     @Column(name = "completed")
-    private boolean completed;
+    private LocalDateTime completed;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinTable(
@@ -41,7 +41,7 @@ public class Task {
     public Task() {
     }
 
-    public Task(User user, String text, LocalDateTime deadline, boolean completed, List<Task> subtasks, TaskCategory category) {
+    public Task(User user, String text, LocalDateTime deadline, LocalDateTime completed, List<Task> subtasks, TaskCategory category) {
         this.user = user;
         this.text = text;
         this.deadline = deadline;
@@ -82,11 +82,11 @@ public class Task {
         this.deadline = deadline;
     }
 
-    public boolean isCompleted() {
+    public LocalDateTime isCompleted() {
         return completed;
     }
 
-    public void setCompleted(boolean completed) {
+    public void setCompleted(LocalDateTime completed) {
         this.completed = completed;
     }
 

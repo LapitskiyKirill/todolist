@@ -18,7 +18,7 @@ public class AuthenticationController {
     private AuthenticationService authenticationService;
 
     @PostMapping
-    public TokenDto authenticate(@RequestBody AuthenticationUserDto authenticationUserDto) throws AuthenticationException {
-        return authenticationService.authenticate(authenticationUserDto);
+    public String authenticate(@RequestBody AuthenticationUserDto authenticationUserDto) throws AuthenticationException {
+        return authenticationService.authenticate(authenticationUserDto).token;
     }
 }

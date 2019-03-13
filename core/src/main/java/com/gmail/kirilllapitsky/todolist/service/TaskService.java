@@ -10,10 +10,12 @@ import com.gmail.kirilllapitsky.todolist.exception.AuthenticationException;
 import com.gmail.kirilllapitsky.todolist.exception.NoSuchTaskException;
 import com.gmail.kirilllapitsky.todolist.repository.TaskCategoryRepository;
 import com.gmail.kirilllapitsky.todolist.repository.TaskRepository;
+import com.gmail.kirilllapitsky.todolist.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -29,13 +31,18 @@ public class TaskService {
     @Autowired
     private TaskCategoryRepository taskCategoryRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     public Task create(User user, NewTaskDto newTaskDto) {
         TaskCategory taskCategory = null;
-
-        if (newTaskDto.category != null && taskCategoryRepository.findByValueAndUser(newTaskDto.category, user).isPresent()) {
+        User admin = userRepository.findByLogin("admin");
+        if (taskCategoryRepository.findByValueAndUser(newTaskDto.category, admin).isPresent()) {
+            taskCategory = taskCategoryRepository.findByValueAndUser(newTaskDto.category, admin).get();
+        } else if (newTaskDto.category != null && taskCategoryRepository.findByValueAndUser(newTaskDto.category, user).isPresent()) {
             Optional<TaskCategory> taskCategoryOptional = taskCategoryRepository.findByValueAndUser(newTaskDto.category, user);
             taskCategory = taskCategoryOptional.orElseGet(() -> new TaskCategory(user, newTaskDto.category));
-        } else if (newTaskDto.category != null){
+        } else if (newTaskDto.category != null) {
             taskCategory = new TaskCategory(user, newTaskDto.category);
             taskCategoryRepository.save(taskCategory);
         }
@@ -44,10 +51,10 @@ public class TaskService {
                 user,
                 newTaskDto.text,
                 newTaskDto.deadline,
-                false,
+                null,
                 newTaskDto.subTasks
                         .stream()
-                        .map(d -> new Task(user, d.text, d.deadline, false, Collections.emptyList(), null))
+                        .map(d -> new Task(user, d.text, d.deadline, null, Collections.emptyList(), null))
                         .collect(Collectors.toList()),
                 taskCategory
         );
@@ -63,7 +70,6 @@ public class TaskService {
             throw new AuthenticationException();
     }
 
-    //    TODO: fix taskCategory duplication
     public TaskDto edit(User user, Long taskId, NewTaskDto newTaskDto) throws NoSuchTaskException, AuthenticationException {
         Task task = taskRepository.findById(taskId)
                 .orElseThrow(() -> new NoSuchTaskException());
@@ -87,7 +93,7 @@ public class TaskService {
         if (!task.getUser().getId().equals(user.getId()))
             throw new AuthenticationException();
 
-        task.setCompleted(true);
+        task.setCompleted(LocalDateTime.now());
 
         taskRepository.save(task);
     }
@@ -99,7 +105,7 @@ public class TaskService {
         if (!task.getUser().getId().equals(user.getId()))
             throw new AuthenticationException();
 
-        task.setCompleted(false);
+        task.setCompleted(null);
 
         taskRepository.save(task);
     }
@@ -107,5 +113,18 @@ public class TaskService {
     public List<TaskDto> all(User user) {
         return Mapper.mapAll(user.getTasks());
     }
-}
 
+    public List<TaskDto> allChecked(User user) {
+        return Mapper.mapAll(user.getTasks())
+                .stream()
+                .filter(t -> t.completed != null)
+                .collect(Collectors.toList());
+    }
+
+    public List<TaskDto> allUnchecked(User user) {
+        return Mapper.mapAll(user.getTasks())
+                .stream()
+                .filter(t -> t.completed == null)
+                .collect(Collectors.toList());
+    }
+}

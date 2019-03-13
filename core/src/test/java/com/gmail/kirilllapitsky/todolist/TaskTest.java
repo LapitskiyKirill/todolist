@@ -7,6 +7,8 @@ import com.gmail.kirilllapitsky.todolist.dto.TokenDto;
 import com.gmail.kirilllapitsky.todolist.entity.Task;
 import com.gmail.kirilllapitsky.todolist.entity.User;
 import com.gmail.kirilllapitsky.todolist.exception.AuthenticationException;
+import com.gmail.kirilllapitsky.todolist.repository.TaskRepository;
+import com.gmail.kirilllapitsky.todolist.repository.UserRepository;
 import com.gmail.kirilllapitsky.todolist.service.AuthenticationService;
 import com.gmail.kirilllapitsky.todolist.service.RegisterService;
 import com.gmail.kirilllapitsky.todolist.service.TaskService;
@@ -19,10 +21,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
-
+import java.util.Collections;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
@@ -39,11 +38,14 @@ public class TaskTest {
     private TaskService taskService;
 
     @Test
-    public void shouldCreateTask() throws AuthenticationException, InterruptedException {
+    public void shouldCreateTask() throws AuthenticationException {
         registerService.register(new RegisterUserDto("nikita", "password"));
         TokenDto tokenDto = authenticationService.authenticate(new AuthenticationUserDto("nikita", "password"));
         User user = authenticationService.validate(tokenDto.token);
-        Task task = taskService.create(user, new NewTaskDto("newtext"));
+        Task task = taskService.create(user, new NewTaskDto("text",
+                null,
+                "housework",
+                Collections.emptyList() ));
 
         Assert.assertTrue(taskService.all(user).stream().anyMatch(t -> t.id.equals(task.getId())));
     }

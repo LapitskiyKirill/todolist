@@ -1,10 +1,7 @@
 package com.gmail.kirilllapitsky.todolist.entity;
 
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
+import java.util.*;
 
 @Entity
 @Table(name = "\"user\"")
@@ -21,7 +18,7 @@ public class User {
     @Column(name = "hash")
     private String hash;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user")
     private List<Task> tasks;
 
     public User() {

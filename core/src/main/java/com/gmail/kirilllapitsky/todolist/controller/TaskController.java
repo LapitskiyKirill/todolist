@@ -64,4 +64,16 @@ public class TaskController {
         User user = authenticationService.validate(token);
         taskService.unCheck(user, taskId);
     }
+
+    @PostMapping("checked")
+    public List<TaskDto> allChecked(@RequestHeader("token") String token) throws AuthenticationException {
+        User user = authenticationService.validate(token);
+        return taskService.allChecked(user);
+    }
+
+    @PostMapping("unchecked")
+    public List<TaskDto> allUnchecked(@RequestHeader("token") String token) throws AuthenticationException {
+        User user = authenticationService.validate(token);
+        return taskService.allUnchecked(user);
+    }
 }

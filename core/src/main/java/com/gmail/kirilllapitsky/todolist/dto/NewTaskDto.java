@@ -15,5 +15,12 @@ public class NewTaskDto {
     public NewTaskDto(String text) {
         this.text = text;
     }
+
+    public NewTaskDto(String text, LocalDateTime deadline, String category, List<NewTaskDto> subTasks) {
+        this.text = text;
+        this.deadline = deadline;
+        this.category = category;
+        this.subTasks = subTasks;
+    }
 }
 
