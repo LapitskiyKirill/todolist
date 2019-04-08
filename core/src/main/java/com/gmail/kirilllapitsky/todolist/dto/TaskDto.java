@@ -1,5 +1,7 @@
 package com.gmail.kirilllapitsky.todolist.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -7,7 +9,9 @@ public class TaskDto {
     public Long id;
     public String category;
     public String text;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     public LocalDateTime deadline;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     public LocalDateTime completed;
     public List<TaskDto> subtasks;
 

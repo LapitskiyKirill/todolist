@@ -2,7 +2,7 @@ package com.gmail.kirilllapitsky.todolist.service;
 
 import com.gmail.kirilllapitsky.todolist.dto.NewTaskDto;
 import com.gmail.kirilllapitsky.todolist.dto.TaskDto;
-import com.gmail.kirilllapitsky.todolist.entity.Mapper;
+import com.gmail.kirilllapitsky.todolist.util.Mapper;
 import com.gmail.kirilllapitsky.todolist.entity.Task;
 import com.gmail.kirilllapitsky.todolist.entity.TaskCategory;
 import com.gmail.kirilllapitsky.todolist.entity.User;
@@ -83,7 +83,7 @@ public class TaskService {
 
         taskRepository.save(task);
 
-        return Mapper.map(task);
+        return Mapper.map(task, TaskDto.class);
     }
 
     public void check(User user, Long taskId) throws NoSuchTaskException, AuthenticationException {
@@ -111,18 +111,18 @@ public class TaskService {
     }
 
     public List<TaskDto> all(User user) {
-        return Mapper.mapAll(user.getTasks());
+        return Mapper.mapAll(user.getTasks(), TaskDto.class);
     }
 
     public List<TaskDto> allChecked(User user) {
-        return Mapper.mapAll(user.getTasks())
+        return Mapper.mapAll(user.getTasks(), TaskDto.class)
                 .stream()
                 .filter(t -> t.completed != null)
                 .collect(Collectors.toList());
     }
 
     public List<TaskDto> allUnchecked(User user) {
-        return Mapper.mapAll(user.getTasks())
+        return Mapper.mapAll(user.getTasks(), TaskDto.class)
                 .stream()
                 .filter(t -> t.completed == null)
                 .collect(Collectors.toList());

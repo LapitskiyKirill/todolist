@@ -1,6 +1,17 @@
 package com.gmail.kirilllapitsky.todolist.entity;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -37,6 +48,9 @@ public class Task {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "category_id")
     private TaskCategory category;
+
+    @OneToOne(mappedBy = "task")
+    private Scheduled scheduled;
 
     public Task() {
     }
@@ -104,5 +118,17 @@ public class Task {
 
     public void setCategory(TaskCategory category) {
         this.category = category;
+    }
+
+    public LocalDateTime getCompleted() {
+        return completed;
+    }
+
+    public Scheduled getScheduled() {
+        return scheduled;
+    }
+
+    public void setScheduled(Scheduled scheduled) {
+        this.scheduled = scheduled;
     }
 }

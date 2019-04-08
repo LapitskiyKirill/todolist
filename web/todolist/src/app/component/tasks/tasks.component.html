@@ -1,3 +1,8 @@
 <div class="overlay">
+    <app-header>
 
+    </app-header>
+    <app-category *ngFor="let category of categories" [category]="category">
+    </app-category>
+    <div class="add"><a>add category</a></div>
 </div>

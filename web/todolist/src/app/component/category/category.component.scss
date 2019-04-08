@@ -1,0 +1,16 @@
+.category {
+  display: grid;
+  width: 1/6*100vw;
+  height: 70px;
+}
+
+.category div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: whitesmoke;
+}
+
+.category div:hover {
+  background-color: #dedede;
+}

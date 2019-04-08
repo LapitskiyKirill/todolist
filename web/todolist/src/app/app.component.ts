@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {RegisterService} from './service/register.service';
-import {Router} from '@angular/router';
+import {NavigationEnd, Router} from '@angular/router';
 
 @Component({
     selector: 'app-root',
@@ -9,6 +9,14 @@ import {Router} from '@angular/router';
 })
 export class AppComponent {
     constructor(private router: Router) {
-        this.router.navigate(['auth']);
-        }
+        this.router.events.subscribe(
+            (event: any) => {
+                if (event instanceof NavigationEnd) {
+                    if (event.url === '/') {
+                        this.router.navigate(['auth']);
+                    }
+                }
+            }
+        );
+    }
 }

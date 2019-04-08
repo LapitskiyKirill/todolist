@@ -1,6 +1,6 @@
 package com.gmail.kirilllapitsky.todolist.exception;
 
-public class NoSuchTaskException extends Exception{
+public class NoSuchTaskException extends Exception {
     public NoSuchTaskException() {
     }
 

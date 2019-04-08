@@ -1,7 +1,6 @@
 package com.gmail.kirilllapitsky.todolist.controller;
 
 import com.gmail.kirilllapitsky.todolist.dto.AuthenticationUserDto;
-import com.gmail.kirilllapitsky.todolist.dto.TokenDto;
 import com.gmail.kirilllapitsky.todolist.exception.AuthenticationException;
 import com.gmail.kirilllapitsky.todolist.service.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
