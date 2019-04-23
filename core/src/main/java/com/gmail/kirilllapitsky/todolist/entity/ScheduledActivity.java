@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "scheduled_activity")
@@ -23,12 +24,12 @@ public class ScheduledActivity {
     private Scheduled scheduled;
 
     @Column(name = "complete")
-    private Boolean complete;
+    private LocalDateTime complete;
 
     public ScheduledActivity() {
     }
 
-    public ScheduledActivity(Scheduled scheduled, Boolean complete) {
+    public ScheduledActivity(Scheduled scheduled, LocalDateTime complete) {
         this.scheduled = scheduled;
         this.complete = complete;
     }
@@ -49,11 +50,11 @@ public class ScheduledActivity {
         this.scheduled = scheduled;
     }
 
-    public Boolean getComplete() {
+    public LocalDateTime getComplete() {
         return complete;
     }
 
-    public void setComplete(Boolean complete) {
+    public void setComplete(LocalDateTime complete) {
         this.complete = complete;
     }
 }

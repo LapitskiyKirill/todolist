@@ -5,16 +5,18 @@ import com.gmail.kirilllapitsky.todolist.entity.enums.Periodicity;
 
 import java.time.LocalDateTime;
 
-public class ScheduledDto {
-    public Long id;
+public class EditScheduledDto {
+    public Long taskId;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     public LocalDateTime from;
     public Periodicity periodicity;
 
-    public ScheduledDto() {
+    public EditScheduledDto() {
+
     }
 
-    public ScheduledDto(LocalDateTime from, Periodicity periodicity) {
+    public EditScheduledDto(Long taskId, LocalDateTime from, Periodicity periodicity) {
+        this.taskId = taskId;
         this.from = from;
         this.periodicity = periodicity;
     }

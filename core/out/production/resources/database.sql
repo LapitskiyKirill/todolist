@@ -85,8 +85,7 @@ create table scheduled
 		constraint scheduled_task_id_fk
 			references task,
 	"from"      timestamp not null,
-	periodicity varchar   not null,
-	active      boolean   not null
+	periodicity varchar   not null
 );
 
 alter table scheduled
@@ -106,7 +105,7 @@ create table scheduled_activity
 	scheduled_id bigint    not null
 		constraint scheduled_activity_scheduled_id_fk
 			references scheduled,
-	complete     boolean   not null
+	completed    timestamp
 );
 
 alter table scheduled_activity
@@ -114,3 +113,4 @@ alter table scheduled_activity
 
 create unique index scheduled_activity_id_uindex
 	on scheduled_activity (id);
+

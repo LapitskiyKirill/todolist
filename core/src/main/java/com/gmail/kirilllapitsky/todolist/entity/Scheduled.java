@@ -30,17 +30,13 @@ public class Scheduled {
     @Column(name = "periodicity")
     private Periodicity periodicity;
 
-    @Column(name = "active")
-    private Boolean active;
-
     public Scheduled() {
     }
 
-    public Scheduled(Task task, LocalDateTime from, Periodicity periodicity, Boolean active) {
+    public Scheduled(Task task, LocalDateTime from, Periodicity periodicity) {
         this.task = task;
         this.from = from;
         this.periodicity = periodicity;
-        this.active = active;
     }
 
     public void setId(Long id) {
@@ -71,11 +67,4 @@ public class Scheduled {
         this.periodicity = periodicity;
     }
 
-    public Boolean getActive() {
-        return active;
-    }
-
-    public void setActive(Boolean active) {
-        this.active = active;
-    }
 }
