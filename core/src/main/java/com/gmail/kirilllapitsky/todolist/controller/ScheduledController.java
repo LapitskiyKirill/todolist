@@ -1,10 +1,14 @@
 package com.gmail.kirilllapitsky.todolist.controller;
 
+import com.gmail.kirilllapitsky.todolist.dto.DateRangeDto;
 import com.gmail.kirilllapitsky.todolist.dto.EditScheduledDto;
 import com.gmail.kirilllapitsky.todolist.dto.NewScheduledDto;
 import com.gmail.kirilllapitsky.todolist.dto.ScheduledDto;
+import com.gmail.kirilllapitsky.todolist.dto.ScheduledEventDto;
+import com.gmail.kirilllapitsky.todolist.entity.User;
 import com.gmail.kirilllapitsky.todolist.exception.AuthenticationException;
-import com.gmail.kirilllapitsky.todolist.exception.NoSuchTaskException;
+import com.gmail.kirilllapitsky.todolist.exception.NoSuchEntityException;
+import com.gmail.kirilllapitsky.todolist.service.AuthenticationService;
 import com.gmail.kirilllapitsky.todolist.service.ScheduledService;
 import com.gmail.kirilllapitsky.todolist.util.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("scheduled")
@@ -26,33 +29,44 @@ public class ScheduledController {
     @Autowired
     private ScheduledService scheduledService;
 
+    @Autowired
+    private AuthenticationService authenticationService;
+
     @PostMapping("create")
     public ScheduledDto create(@RequestHeader("token") String token,
                                @RequestBody NewScheduledDto newScheduledDto)
-            throws NoSuchTaskException, AuthenticationException {
+            throws NoSuchEntityException, AuthenticationException {
+        User user = authenticationService.validate(token);
 
-        return Mapper.map(scheduledService.create(token, newScheduledDto), ScheduledDto.class);
+        return Mapper.map(scheduledService.create(user, newScheduledDto), ScheduledDto.class);
     }
 
     @GetMapping("delete")
     public void delete(@RequestHeader("token") String token, @RequestParam("taskId") Long taskId)
-            throws AuthenticationException, NoSuchTaskException {
+            throws AuthenticationException, NoSuchEntityException {
+        User user = authenticationService.validate(token);
 
-        scheduledService.delete(token, taskId);
+        scheduledService.delete(user, taskId);
     }
 
-    @GetMapping("getAllScheduled")
-    public List<ScheduledDto> getScheduled(@RequestHeader("token") String token) {
-        return scheduledService.getScheduled(token).stream()
-                .map(t -> Mapper.map(t, ScheduledDto.class))
-                .collect(Collectors.toList());
+    @GetMapping("getAll")
+    public List<ScheduledDto> getAllScheduled(@RequestHeader("token") String token) {
+        User user = authenticationService.validate(token);
+        return Mapper.mapAll(scheduledService.getAll(user), ScheduledDto.class);
     }
 
     @PostMapping("edit")
     public ScheduledDto edit(@RequestHeader("token") String token,
-                             @RequestBody EditScheduledDto editScheduledDto) throws NoSuchTaskException, AuthenticationException {
+                             @RequestBody EditScheduledDto editScheduledDto) throws NoSuchEntityException, AuthenticationException {
+        User user = authenticationService.validate(token);
 
-        return Mapper.map(scheduledService.edit(token, editScheduledDto), ScheduledDto.class);
+        return Mapper.map(scheduledService.edit(user, editScheduledDto), ScheduledDto.class);
+    }
+
+    @PostMapping("getEvents")
+    public List<ScheduledEventDto> getEvents(@RequestHeader("token") String token, @RequestParam("taskId") Long taskId, @RequestBody DateRangeDto dateRangeDto) throws NoSuchEntityException {
+        User user = authenticationService.validate(token);
+        return scheduledService.getEvents(user, taskId, dateRangeDto);
     }
 
 

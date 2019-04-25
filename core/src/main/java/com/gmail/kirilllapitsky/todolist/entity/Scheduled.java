@@ -10,7 +10,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Entity
 @Table(name = "scheduled")
@@ -66,5 +68,4 @@ public class Scheduled {
     public void setPeriodicity(Periodicity periodicity) {
         this.periodicity = periodicity;
     }
-
 }
