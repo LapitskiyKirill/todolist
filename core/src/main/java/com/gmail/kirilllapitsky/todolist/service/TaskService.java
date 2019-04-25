@@ -7,7 +7,7 @@ import com.gmail.kirilllapitsky.todolist.entity.Task;
 import com.gmail.kirilllapitsky.todolist.entity.TaskCategory;
 import com.gmail.kirilllapitsky.todolist.entity.User;
 import com.gmail.kirilllapitsky.todolist.exception.AuthenticationException;
-import com.gmail.kirilllapitsky.todolist.exception.NoSuchTaskException;
+import com.gmail.kirilllapitsky.todolist.exception.NoSuchEntityException;
 import com.gmail.kirilllapitsky.todolist.repository.TaskCategoryRepository;
 import com.gmail.kirilllapitsky.todolist.repository.TaskRepository;
 import com.gmail.kirilllapitsky.todolist.repository.UserRepository;
@@ -61,18 +61,18 @@ public class TaskService {
         return taskRepository.save(task);
     }
 
-    public void delete(User user, Long taskId) throws NoSuchTaskException, AuthenticationException {
+    public void delete(User user, Long taskId) throws NoSuchEntityException, AuthenticationException {
         Task task = taskRepository.findById(taskId)
-                .orElseThrow(() -> new NoSuchTaskException());
+                .orElseThrow(() -> new NoSuchEntityException());
         if (task.getUser().getId().equals(user.getId()))
             taskRepository.delete(task);
         else
             throw new AuthenticationException();
     }
 
-    public TaskDto edit(User user, Long taskId, NewTaskDto newTaskDto) throws NoSuchTaskException, AuthenticationException {
+    public TaskDto edit(User user, Long taskId, NewTaskDto newTaskDto) throws NoSuchEntityException, AuthenticationException {
         Task task = taskRepository.findById(taskId)
-                .orElseThrow(() -> new NoSuchTaskException());
+                .orElseThrow(() -> new NoSuchEntityException());
 
         task.setCategory(new TaskCategory(user, newTaskDto.category));
         task.setText(newTaskDto.text);
@@ -86,9 +86,9 @@ public class TaskService {
         return Mapper.map(task, TaskDto.class);
     }
 
-    public void check(User user, Long taskId) throws NoSuchTaskException, AuthenticationException {
+    public void check(User user, Long taskId) throws NoSuchEntityException, AuthenticationException {
         Task task = taskRepository.findById(taskId)
-                .orElseThrow(() -> new NoSuchTaskException());
+                .orElseThrow(() -> new NoSuchEntityException());
 
         if (!task.getUser().getId().equals(user.getId()))
             throw new AuthenticationException();
@@ -98,9 +98,9 @@ public class TaskService {
         taskRepository.save(task);
     }
 
-    public void unCheck(User user, Long taskId) throws AuthenticationException, NoSuchTaskException {
+    public void unCheck(User user, Long taskId) throws AuthenticationException, NoSuchEntityException {
         Task task = taskRepository.findById(taskId)
-                .orElseThrow(() -> new NoSuchTaskException());
+                .orElseThrow(() -> new NoSuchEntityException());
 
         if (!task.getUser().getId().equals(user.getId()))
             throw new AuthenticationException();

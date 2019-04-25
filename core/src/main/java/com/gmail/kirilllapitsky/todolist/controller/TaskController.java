@@ -6,7 +6,7 @@ import com.gmail.kirilllapitsky.todolist.util.Mapper;
 import com.gmail.kirilllapitsky.todolist.entity.Task;
 import com.gmail.kirilllapitsky.todolist.entity.User;
 import com.gmail.kirilllapitsky.todolist.exception.AuthenticationException;
-import com.gmail.kirilllapitsky.todolist.exception.NoSuchTaskException;
+import com.gmail.kirilllapitsky.todolist.exception.NoSuchEntityException;
 import com.gmail.kirilllapitsky.todolist.service.AuthenticationService;
 import com.gmail.kirilllapitsky.todolist.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,13 +40,13 @@ public class TaskController {
     }
 
     @GetMapping("delete")
-    public void delete(@RequestHeader("token") String token, @RequestParam("taskId") Long taskId) throws NoSuchTaskException, AuthenticationException {
+    public void delete(@RequestHeader("token") String token, @RequestParam("taskId") Long taskId) throws NoSuchEntityException, AuthenticationException {
         User user = authenticationService.validate(token);
         taskService.delete(user, taskId);
     }
 
     @PostMapping("edit")
-    public TaskDto edit(@RequestHeader("token") String token, @RequestParam("taskId") Long taskId, @RequestBody NewTaskDto newTaskDto) throws NoSuchTaskException, AuthenticationException {
+    public TaskDto edit(@RequestHeader("token") String token, @RequestParam("taskId") Long taskId, @RequestBody NewTaskDto newTaskDto) throws NoSuchEntityException, AuthenticationException {
         User user = authenticationService.validate(token);
         return taskService.edit(user, taskId, newTaskDto);
     }
@@ -58,13 +58,13 @@ public class TaskController {
     }
 
     @PostMapping("check")
-    public void checking(@RequestHeader("token") String token, @RequestParam("taskId") Long taskId) throws NoSuchTaskException, AuthenticationException {
+    public void checking(@RequestHeader("token") String token, @RequestParam("taskId") Long taskId) throws NoSuchEntityException, AuthenticationException {
         User user = authenticationService.validate(token);
         taskService.check(user, taskId);
     }
 
     @PostMapping("uncheck")
-    public void unChecking(@RequestHeader("token") String token, @RequestParam("taskId") Long taskId) throws NoSuchTaskException, AuthenticationException {
+    public void unChecking(@RequestHeader("token") String token, @RequestParam("taskId") Long taskId) throws NoSuchEntityException, AuthenticationException {
         User user = authenticationService.validate(token);
         taskService.unCheck(user, taskId);
     }
