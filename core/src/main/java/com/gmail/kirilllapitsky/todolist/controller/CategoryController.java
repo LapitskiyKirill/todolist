@@ -2,7 +2,9 @@ package com.gmail.kirilllapitsky.todolist.controller;
 
 import com.gmail.kirilllapitsky.todolist.dto.CategoryDto;
 import com.gmail.kirilllapitsky.todolist.dto.NewCategoryDto;
+import com.gmail.kirilllapitsky.todolist.dto.TaskDto;
 import com.gmail.kirilllapitsky.todolist.entity.User;
+import com.gmail.kirilllapitsky.todolist.exception.NoSuchEntityException;
 import com.gmail.kirilllapitsky.todolist.service.AuthenticationService;
 import com.gmail.kirilllapitsky.todolist.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,5 +41,11 @@ public class CategoryController {
     public List<CategoryDto> getCategories(@RequestHeader("token") String token) {
         User user = authenticationService.validate(token);
         return categoryService.getCategories(user);
+    }
+
+    @GetMapping("getCategoryTasks")
+    public List<TaskDto> getCategoryTasks(@RequestHeader("token") String token, @RequestHeader("category") String category) throws NoSuchEntityException {
+        User user = authenticationService.validate(token);
+        return categoryService.getTasks(user, category);
     }
 }

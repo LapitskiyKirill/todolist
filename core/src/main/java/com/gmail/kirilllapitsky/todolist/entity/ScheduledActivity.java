@@ -26,12 +26,21 @@ public class ScheduledActivity {
     @Column(name = "complete")
     private LocalDateTime complete;
 
+    @Column(name = "date")
+    private LocalDateTime date;
+
     public ScheduledActivity() {
     }
 
     public ScheduledActivity(Scheduled scheduled, LocalDateTime complete) {
         this.scheduled = scheduled;
         this.complete = complete;
+    }
+
+    public ScheduledActivity(Scheduled scheduled, LocalDateTime complete, LocalDateTime date) {
+        this.scheduled = scheduled;
+        this.complete = complete;
+        this.date = date;
     }
 
     public Long getId() {
@@ -56,5 +65,13 @@ public class ScheduledActivity {
 
     public void setComplete(LocalDateTime complete) {
         this.complete = complete;
+    }
+
+    public LocalDateTime getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDateTime date) {
+        this.date = date;
     }
 }

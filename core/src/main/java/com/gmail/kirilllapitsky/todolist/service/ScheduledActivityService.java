@@ -32,30 +32,35 @@ public class ScheduledActivityService {
     public void generateTodayScheduledActivities() {
         userRepository.findAll().stream()
                 .parallel()
-                .forEach(u -> {
-                    scheduledService.getAll(u).stream()
-                            .parallel()
-                            .forEach(s -> {
-                                scheduledService.getScheduledScheduledEventsInRange(s, DateRangeDto.dayOf(LocalDate.now())).stream()
-                                        .parallel()
-                                        .map(e -> new ScheduledActivity(e.scheduled, null))
-                                        .forEach(scheduledActivityRepository::save);
-                            });
-                });
+                .forEach(u -> scheduledService.getAll(u).stream()
+                        .parallel()
+                        .forEach(s -> scheduledService.getScheduledScheduledEventsInRange(s, DateRangeDto.dayOf(LocalDate.now())).stream()
+                                .parallel()
+                                .map(e -> new ScheduledActivity(e.scheduled, null, LocalDateTime.now()))
+                                .forEach(scheduledActivityRepository::save)));
     }
 
     public void complete(User user, Long scheduledActivityId) {
-
-        ScheduledActivity scheduledActivity = scheduledActivityRepository.findById(scheduledActivityId).get();
-        if (scheduledActivity.getScheduled().getTask().getUser().getId().equals(user.getId())) {
-            scheduledActivity.setComplete(LocalDateTime.now());
+        ScheduledActivity scheduledActivity;
+        if (scheduledActivityRepository.findById(scheduledActivityId).isPresent()) {
+            scheduledActivity = scheduledActivityRepository.findById(scheduledActivityId).get();
+            if (scheduledActivity.getScheduled().getTask().getUser().getId().equals(user.getId())) {
+                if (scheduledActivity.getDate().toLocalDate().equals(LocalDateTime.now().toLocalDate())) {
+                    scheduledActivity.setComplete(LocalDateTime.now());
+                }
+            }
         }
     }
 
     public void uncheck(User user, Long scheduledActivityId) {
-        ScheduledActivity scheduledActivity = scheduledActivityRepository.findById(scheduledActivityId).get();
-        if (scheduledActivity.getScheduled().getTask().getUser().getId().equals(user.getId())) {
-            scheduledActivity.setComplete(null);
+        ScheduledActivity scheduledActivity;
+        if (scheduledActivityRepository.findById(scheduledActivityId).isPresent()) {
+            scheduledActivity = scheduledActivityRepository.findById(scheduledActivityId).get();
+            if (scheduledActivity.getScheduled().getTask().getUser().getId().equals(user.getId())) {
+                if (scheduledActivity.getDate().toLocalDate().equals(LocalDateTime.now().toLocalDate())) {
+                    scheduledActivity.setComplete(null);
+                }
+            }
         }
     }
 }
