@@ -2,13 +2,13 @@ package com.gmail.kirilllapitsky.todolist.controller;
 
 import com.gmail.kirilllapitsky.todolist.dto.NewTaskDto;
 import com.gmail.kirilllapitsky.todolist.dto.TaskDto;
-import com.gmail.kirilllapitsky.todolist.util.Mapper;
 import com.gmail.kirilllapitsky.todolist.entity.Task;
 import com.gmail.kirilllapitsky.todolist.entity.User;
 import com.gmail.kirilllapitsky.todolist.exception.AuthenticationException;
 import com.gmail.kirilllapitsky.todolist.exception.NoSuchEntityException;
 import com.gmail.kirilllapitsky.todolist.service.AuthenticationService;
 import com.gmail.kirilllapitsky.todolist.service.TaskService;
+import com.gmail.kirilllapitsky.todolist.util.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,11 +26,15 @@ import java.util.List;
 @Transactional
 public class TaskController {
 
-    @Autowired
-    private TaskService taskService;
+    private final TaskService taskService;
+
+    private final AuthenticationService authenticationService;
 
     @Autowired
-    private AuthenticationService authenticationService;
+    public TaskController(TaskService taskService, AuthenticationService authenticationService) {
+        this.taskService = taskService;
+        this.authenticationService = authenticationService;
+    }
 
     @PostMapping("create")
     public TaskDto create(@RequestHeader("token") String token, @RequestBody NewTaskDto newTaskDto) {

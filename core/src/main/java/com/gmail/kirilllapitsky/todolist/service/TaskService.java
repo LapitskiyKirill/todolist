@@ -25,14 +25,18 @@ import java.util.stream.Collectors;
 @Transactional
 public class TaskService {
 
-    @Autowired
-    private TaskRepository taskRepository;
+    private final TaskRepository taskRepository;
+
+    private final TaskCategoryRepository taskCategoryRepository;
+
+    private final UserRepository userRepository;
 
     @Autowired
-    private TaskCategoryRepository taskCategoryRepository;
-
-    @Autowired
-    private UserRepository userRepository;
+    public TaskService(TaskRepository taskRepository, TaskCategoryRepository taskCategoryRepository, UserRepository userRepository) {
+        this.taskRepository = taskRepository;
+        this.taskCategoryRepository = taskCategoryRepository;
+        this.userRepository = userRepository;
+    }
 
     public Task create(User user, NewTaskDto newTaskDto) {
         TaskCategory taskCategory = null;
@@ -63,7 +67,7 @@ public class TaskService {
 
     public void delete(User user, Long taskId) throws NoSuchEntityException, AuthenticationException {
         Task task = taskRepository.findById(taskId)
-                .orElseThrow(() -> new NoSuchEntityException());
+                .orElseThrow(NoSuchEntityException::new);
         if (task.getUser().getId().equals(user.getId()))
             taskRepository.delete(task);
         else
@@ -72,7 +76,7 @@ public class TaskService {
 
     public TaskDto edit(User user, Long taskId, NewTaskDto newTaskDto) throws NoSuchEntityException, AuthenticationException {
         Task task = taskRepository.findById(taskId)
-                .orElseThrow(() -> new NoSuchEntityException());
+                .orElseThrow(NoSuchEntityException::new);
 
         task.setCategory(new TaskCategory(user, newTaskDto.category));
         task.setText(newTaskDto.text);
@@ -88,7 +92,7 @@ public class TaskService {
 
     public void check(User user, Long taskId) throws NoSuchEntityException, AuthenticationException {
         Task task = taskRepository.findById(taskId)
-                .orElseThrow(() -> new NoSuchEntityException());
+                .orElseThrow(NoSuchEntityException::new);
 
         if (!task.getUser().getId().equals(user.getId()))
             throw new AuthenticationException();
@@ -100,7 +104,7 @@ public class TaskService {
 
     public void unCheck(User user, Long taskId) throws AuthenticationException, NoSuchEntityException {
         Task task = taskRepository.findById(taskId)
-                .orElseThrow(() -> new NoSuchEntityException());
+                .orElseThrow(NoSuchEntityException::new);
 
         if (!task.getUser().getId().equals(user.getId()))
             throw new AuthenticationException();

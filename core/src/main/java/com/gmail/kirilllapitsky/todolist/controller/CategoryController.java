@@ -19,11 +19,15 @@ import java.util.List;
 @RequestMapping("category")
 public class CategoryController {
 
-    @Autowired
-    private CategoryService categoryService;
+    private final CategoryService categoryService;
+
+    private final AuthenticationService authenticationService;
 
     @Autowired
-    private AuthenticationService authenticationService;
+    public CategoryController(CategoryService categoryService, AuthenticationService authenticationService) {
+        this.categoryService = categoryService;
+        this.authenticationService = authenticationService;
+    }
 
     @PostMapping("createCategory")
     public void createCategory(@RequestHeader("token") String token, @RequestBody NewCategoryDto newCategoryDto) {
@@ -36,6 +40,4 @@ public class CategoryController {
         User user = authenticationService.validate(token);
         return categoryService.getCategories(user);
     }
-
-
 }

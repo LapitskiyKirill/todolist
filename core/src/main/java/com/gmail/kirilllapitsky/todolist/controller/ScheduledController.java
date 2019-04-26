@@ -1,10 +1,8 @@
 package com.gmail.kirilllapitsky.todolist.controller;
 
-import com.gmail.kirilllapitsky.todolist.dto.DateRangeDto;
 import com.gmail.kirilllapitsky.todolist.dto.EditScheduledDto;
 import com.gmail.kirilllapitsky.todolist.dto.NewScheduledDto;
 import com.gmail.kirilllapitsky.todolist.dto.ScheduledDto;
-import com.gmail.kirilllapitsky.todolist.dto.ScheduledEventDto;
 import com.gmail.kirilllapitsky.todolist.entity.User;
 import com.gmail.kirilllapitsky.todolist.exception.AuthenticationException;
 import com.gmail.kirilllapitsky.todolist.exception.NoSuchEntityException;
@@ -26,11 +24,15 @@ import java.util.List;
 @RequestMapping("scheduled")
 public class ScheduledController {
 
-    @Autowired
-    private ScheduledService scheduledService;
+    private final ScheduledService scheduledService;
+
+    private final AuthenticationService authenticationService;
 
     @Autowired
-    private AuthenticationService authenticationService;
+    public ScheduledController(ScheduledService scheduledService, AuthenticationService authenticationService) {
+        this.scheduledService = scheduledService;
+        this.authenticationService = authenticationService;
+    }
 
     @PostMapping("create")
     public ScheduledDto create(@RequestHeader("token") String token,
@@ -62,12 +64,5 @@ public class ScheduledController {
 
         return Mapper.map(scheduledService.edit(user, editScheduledDto), ScheduledDto.class);
     }
-
-    @PostMapping("getEvents")
-    public List<ScheduledEventDto> getEvents(@RequestHeader("token") String token, @RequestParam("taskId") Long taskId, @RequestBody DateRangeDto dateRangeDto) throws NoSuchEntityException {
-        User user = authenticationService.validate(token);
-        return scheduledService.getEvents(user, taskId, dateRangeDto);
-    }
-
 
 }

@@ -16,11 +16,15 @@ import java.util.stream.Collectors;
 @Service
 public class CategoryService {
 
-    @Autowired
-    private TaskCategoryRepository taskCategoryRepository;
+    private final TaskCategoryRepository taskCategoryRepository;
+
+    private final UserRepository userRepository;
 
     @Autowired
-    private UserRepository userRepository;
+    public CategoryService(TaskCategoryRepository taskCategoryRepository, UserRepository userRepository) {
+        this.taskCategoryRepository = taskCategoryRepository;
+        this.userRepository = userRepository;
+    }
 
     public List<CategoryDto> getCategories(User user) {
         User admin = userRepository.findByLogin("admin");

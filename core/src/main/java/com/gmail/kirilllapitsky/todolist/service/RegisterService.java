@@ -13,8 +13,12 @@ import static com.gmail.kirilllapitsky.todolist.security.Hasher.getHash;
 @Transactional
 public class RegisterService {
 
+    private final UserRepository userRepository;
+
     @Autowired
-    private UserRepository userRepository;
+    public RegisterService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     public void register(RegisterUserDto registerUserDto) {
         User user = new User(registerUserDto.login, getHash(registerUserDto.password));

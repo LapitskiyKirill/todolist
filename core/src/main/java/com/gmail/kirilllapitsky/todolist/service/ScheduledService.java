@@ -5,10 +5,12 @@ import com.gmail.kirilllapitsky.todolist.dto.EditScheduledDto;
 import com.gmail.kirilllapitsky.todolist.dto.NewScheduledDto;
 import com.gmail.kirilllapitsky.todolist.dto.ScheduledEventDto;
 import com.gmail.kirilllapitsky.todolist.entity.Scheduled;
+import com.gmail.kirilllapitsky.todolist.entity.ScheduledActivity;
 import com.gmail.kirilllapitsky.todolist.entity.Task;
 import com.gmail.kirilllapitsky.todolist.entity.User;
 import com.gmail.kirilllapitsky.todolist.exception.AuthenticationException;
 import com.gmail.kirilllapitsky.todolist.exception.NoSuchEntityException;
+import com.gmail.kirilllapitsky.todolist.repository.ScheduledActivityRepository;
 import com.gmail.kirilllapitsky.todolist.repository.ScheduledRepository;
 import com.gmail.kirilllapitsky.todolist.repository.TaskRepository;
 import com.gmail.kirilllapitsky.todolist.util.Dates;
@@ -20,6 +22,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -27,19 +30,27 @@ import java.util.stream.Collectors;
 @Transactional
 public class ScheduledService {
 
-    @Autowired
-    private ScheduledRepository scheduledRepository;
+    private final ScheduledRepository scheduledRepository;
+
+    private final TaskRepository taskRepository;
+
+    private final ScheduledActivityRepository scheduledActivityRepository;
 
     @Autowired
-    private TaskRepository taskRepository;
+    public ScheduledService(ScheduledRepository scheduledRepository, TaskRepository taskRepository, ScheduledActivityRepository scheduledActivityRepository) {
+        this.scheduledRepository = scheduledRepository;
+        this.taskRepository = taskRepository;
+        this.scheduledActivityRepository = scheduledActivityRepository;
+    }
 
     //    TODO: deal with business logic of task deletion
     public void delete(User user, Long taskId)
             throws NoSuchEntityException, AuthenticationException {
+
         Task task = taskRepository.findById(taskId)
-                .orElseThrow(() -> new NoSuchEntityException());
+                .orElseThrow(NoSuchEntityException::new);
         Scheduled scheduled = scheduledRepository.findByTask(task)
-                .orElseThrow(() -> new NoSuchEntityException());
+                .orElseThrow(NoSuchEntityException::new);
         if (task.getUser().getId().equals(user.getId()))
             scheduledRepository.delete(scheduled);
         else
@@ -47,13 +58,17 @@ public class ScheduledService {
 
     }
 
-    public Scheduled create(User user, NewScheduledDto newScheduledDto)
-            throws NoSuchEntityException, AuthenticationException {
+    public Scheduled create(User user, NewScheduledDto newScheduledDto) throws NoSuchEntityException, AuthenticationException {
+
         Task task = taskRepository.findById(newScheduledDto.taskId)
-                .orElseThrow(() -> new NoSuchEntityException());
+                .orElseThrow(NoSuchEntityException::new);
         if (!task.getUser().getId().equals(user.getId()))
             throw new AuthenticationException();
         Scheduled scheduled = new Scheduled(task, newScheduledDto.from, newScheduledDto.periodicity);
+
+        if (scheduled.getFrom().toLocalDate().equals(LocalDate.now())) {
+            scheduledActivityRepository.save(new ScheduledActivity(scheduled, null));
+        }
 
         scheduledRepository.save(scheduled);
         return scheduled;
@@ -63,13 +78,13 @@ public class ScheduledService {
             throws AuthenticationException, NoSuchEntityException {
 
         Task task = taskRepository.findById(editScheduledDto.taskId)
-                .orElseThrow(() -> new NoSuchEntityException());
+                .orElseThrow(NoSuchEntityException::new);
 
         if (!task.getUser().getId().equals(user.getId()))
             throw new AuthenticationException();
 
         Scheduled scheduled = scheduledRepository.findByTask(task)
-                .orElseThrow(() -> new NoSuchEntityException());
+                .orElseThrow(NoSuchEntityException::new);
 
         scheduled.setFrom(editScheduledDto.from);
         scheduled.setPeriodicity(editScheduledDto.periodicity);
@@ -79,19 +94,27 @@ public class ScheduledService {
 
     public List<Scheduled> getAll(User user) {
         return user.getTasks().stream()
-                .map(t -> t.getScheduled())
-                .filter(t -> t != null)
+                .map(Task::getScheduled)
+                .filter(Objects::nonNull)
                 .collect(Collectors.toList());
 
     }
 
-    public List<ScheduledEventDto> getEvents(User user, Long taskId, DateRangeDto dateRangeDto) throws NoSuchEntityException {
+    public List<ScheduledEventDto> getEvents(User user, Long taskId, DateRangeDto dateRangeDto)
+            throws NoSuchEntityException, AuthenticationException {
+
+        Task task = taskRepository.findById(taskId)
+                .orElseThrow(NoSuchEntityException::new);
+        if (!task.getUser().getId().equals(user.getId()))
+            throw new AuthenticationException();
+
         Scheduled scheduled = scheduledRepository.findById(taskId).orElseThrow(() -> new NoSuchEntityException("No such scheduled task"));
 
         return getScheduledScheduledEventsInRange(scheduled, dateRangeDto);
     }
 
     public List<ScheduledEventDto> getScheduledScheduledEventsInRange(Scheduled scheduled, DateRangeDto dateRangeDto) {
+
         return generateScheduledDatesInRange(scheduled, dateRangeDto).stream()
                 .map(d -> new ScheduledEventDto(scheduled, d))
                 .collect(Collectors.toList());

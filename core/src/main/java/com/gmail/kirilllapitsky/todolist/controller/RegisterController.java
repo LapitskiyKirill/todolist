@@ -11,8 +11,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("register")
 public class RegisterController {
+    private final RegisterService registerService;
+
     @Autowired
-    private RegisterService registerService;
+    public RegisterController(RegisterService registerService) {
+        this.registerService = registerService;
+    }
 
     @PostMapping
     public void register(@RequestBody RegisterUserDto registerUserDto) {

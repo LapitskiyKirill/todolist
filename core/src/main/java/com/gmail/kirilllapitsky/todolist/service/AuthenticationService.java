@@ -19,11 +19,15 @@ import static com.gmail.kirilllapitsky.todolist.security.Hasher.check;
 @Transactional
 public class AuthenticationService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+
+    private final TokenRepository tokenRepository;
 
     @Autowired
-    private TokenRepository tokenRepository;
+    public AuthenticationService(UserRepository userRepository, TokenRepository tokenRepository) {
+        this.userRepository = userRepository;
+        this.tokenRepository = tokenRepository;
+    }
 
     public TokenDto authenticate(AuthenticationUserDto authenticationUserDto) throws AuthenticationException {
         User user = userRepository.findByLogin(authenticationUserDto.login);

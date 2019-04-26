@@ -17,4 +17,8 @@ public class DateRangeDto {
         this.from = from;
         this.to = to;
     }
+
+    public static DateRangeDto dayOf(LocalDate date) {
+        return new DateRangeDto(date, date);
+    }
 }
