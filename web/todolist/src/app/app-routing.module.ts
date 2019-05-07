@@ -32,7 +32,7 @@ const routes: Routes = [
         ]
     },
     {
-        path: 'taskInfo',
+        path: 'taskInfo/:taskId',
         component: TaskInfoComponent
     }
 ];

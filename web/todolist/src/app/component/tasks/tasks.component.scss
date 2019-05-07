@@ -17,10 +17,6 @@ app-header {
   grid-row: 1/4;
   background: #7d7c8f;
 
-  app-category {
-
-  }
-
   .add {
     height: 70px;
     background: #7d7c8f;
@@ -40,25 +36,44 @@ app-header {
 
 .menu {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   height: 70px;
   grid-column: 3/13;
   grid-row: 1/2;
   background: #9592aa;
   align-items: center;
 
-  div {
+  .addTask {
+    grid-column: 1/2;
     justify-self: center;
+    padding: 20px;
+    border-radius: 75px;
   }
 
-
-  .add {
-    grid-column: 1/2;
+  .addTask:hover {
+    background: #85829a;
   }
 
   .scheduled {
     grid-column: 2/3;
+    justify-self: center;
+    padding: 20px;
+    border-radius: 75px;
+  }
 
+  .scheduled:hover {
+    background: #85829a;
+  }
+
+  .graphics {
+    grid-column: 3/4;
+    justify-self: center;
+    padding: 20px;
+    border-radius: 75px;
+  }
+
+  .graphics:hover {
+    background: #85829a;
   }
 }
 
@@ -97,10 +112,5 @@ app-header {
   .task:hover {
     background: #cccccc;
     border-bottom: 1px solid #bfbfbf;
-
-    div {
-      height: 50px;
-      text-align: center;
-    }
   }
 }

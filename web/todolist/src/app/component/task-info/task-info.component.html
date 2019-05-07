@@ -1,3 +1,53 @@
-<p>
-  task-info works!
-</p>
+<div>
+    <app-header>
+    </app-header>
+    <div class="content">
+        <div class="categories" *ngIf="categories">
+            <app-category *ngFor="let category of categories" [category]="category">
+            </app-category>
+            <div class="add">Add category</div>
+        </div>
+
+        <div class="menu">
+            <div class="edit">
+                Edit task
+            </div>
+            <div class="back" [routerLink]="'/tasks'">
+                Back to all tasks
+            </div>
+        </div>
+        <div class="tasks">
+            <div class="taskInfo">
+                <div>Category</div>
+                <div>Task</div>
+                <div>Deadline</div>
+                <div>Completed</div>
+            </div>
+
+            <div class="task">
+                <div>
+                    {{task.category.value}}
+                </div>
+                <div>
+                    {{task.text}}
+                </div>
+                <div>
+                    <div *ngIf="task.completed; else nullvalue"></div>
+                    {{task.deadline}}
+                </div>
+                <div>
+                    <div *ngIf="task.completed; else complete"></div>
+                    {{task.completed}}
+                </div>
+                <ng-template #nullvalue>
+                    -
+                </ng-template>
+                <ng-template #complete>
+                    <label>
+                        <input type="checkbox" [checked]="check()">
+                    </label>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+</div>

@@ -14,14 +14,11 @@ export class HeaderComponent implements OnInit {
     }
 
     logout() {
-
         this.http.get(SERVER_PATH + '/token/delete', {
             params: {
                 token: localStorage.getItem('token')
             }
         }).subscribe();
-
-
     }
 
 

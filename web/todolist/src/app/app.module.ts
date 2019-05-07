@@ -13,6 +13,7 @@ import {CategoryComponent} from './component/category/category.component';
 import { AllTasksComponent } from './component/all-tasks/all-tasks.component';
 import { CategoryTasksComponent } from './component/category-tasks/category-tasks.component';
 import { TaskInfoComponent } from './component/task-info/task-info.component';
+import { EditTaskComponent } from './component/edit-task/edit-task.component';
 
 @NgModule({
     declarations: [
@@ -24,7 +25,8 @@ import { TaskInfoComponent } from './component/task-info/task-info.component';
         CategoryComponent,
         AllTasksComponent,
         CategoryTasksComponent,
-        TaskInfoComponent
+        TaskInfoComponent,
+        EditTaskComponent
     ],
     imports: [
         BrowserModule,

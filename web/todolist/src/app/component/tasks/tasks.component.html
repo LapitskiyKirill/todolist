@@ -2,7 +2,7 @@
     <app-header>
     </app-header>
     <div class="content">
-        <div class="categories" *ngIf="categories" >
+        <div class="categories" *ngIf="categories">
             <app-category *ngFor="let category of categories" [category]="category">
             </app-category>
 
@@ -10,15 +10,14 @@
         </div>
 
         <div class="menu">
-            <div class="Add">
-                <div>
-                    Add new task
-                </div>
+            <div class="addTask">
+                Add new task
             </div>
-            <div class="Scheduled">
-                <div>
-                    Scheduled
-                </div>
+            <div class="scheduled">
+                Scheduled
+            </div>
+            <div class="graphics">
+                Graphics
             </div>
         </div>
         <div class="tasks">

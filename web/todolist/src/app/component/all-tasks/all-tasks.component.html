@@ -8,18 +8,21 @@
     </div>
 
     <div *ngFor="let task of tasks">
-        <div class="task">
+        <div class="task" [routerLink]="'/taskInfo/' + task.id">
             <div>  {{task.category.value}}</div>
             <div>  {{task.text}}</div>
             <div>
                 <div *ngIf="task.completed; else nullvalue"></div>
-                {{task.deadline}}</div>
+                {{task.deadline}}
+            </div>
             <div>
                 <div *ngIf="task.completed; else nullvalue"></div>
-                {{task.completed}}</div>
-            <div class="subtasks">  {{task.subtasks.length}}</div>
+                {{task.completed}}
+            </div>
+            <div class="subtasks">
+                {{task.subtasks.length}}
+            </div>
             <ng-template #nullvalue>
-                -
             </ng-template>
         </div>
     </div>
