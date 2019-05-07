@@ -1,16 +1,19 @@
 .category {
   display: grid;
-  width: 1/6*100vw;
   height: 70px;
 }
 
 .category div {
   display: flex;
+  padding-left: 30%;
   align-items: center;
-  justify-content: center;
-  background: whitesmoke;
+  justify-content: start;
+  background: #7d7c8f;
+  color: white;
+
 }
 
 .category div:hover {
-  background-color: #dedede;
+  background: #4b4b52;
+  color: white;
 }

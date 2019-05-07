@@ -1,8 +1,8 @@
 package com.gmail.kirilllapitsky.todolist.service;
 
+import com.gmail.kirilllapitsky.todolist.dto.CategoryDto;
 import com.gmail.kirilllapitsky.todolist.dto.NewTaskDto;
 import com.gmail.kirilllapitsky.todolist.dto.TaskDto;
-import com.gmail.kirilllapitsky.todolist.util.Mapper;
 import com.gmail.kirilllapitsky.todolist.entity.Task;
 import com.gmail.kirilllapitsky.todolist.entity.TaskCategory;
 import com.gmail.kirilllapitsky.todolist.entity.User;
@@ -11,6 +11,7 @@ import com.gmail.kirilllapitsky.todolist.exception.NoSuchEntityException;
 import com.gmail.kirilllapitsky.todolist.repository.TaskCategoryRepository;
 import com.gmail.kirilllapitsky.todolist.repository.TaskRepository;
 import com.gmail.kirilllapitsky.todolist.repository.UserRepository;
+import com.gmail.kirilllapitsky.todolist.util.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -129,6 +130,22 @@ public class TaskService {
         return Mapper.mapAll(user.getTasks(), TaskDto.class)
                 .stream()
                 .filter(t -> t.completed == null)
+                .collect(Collectors.toList());
+    }
+
+    public List<TaskDto> getByCategory(User user, String category) throws NoSuchEntityException {
+        List<TaskDto> tasks = Mapper.mapAll(user.getTasks(), TaskDto.class);
+        TaskCategory taskCategory;
+        User admin = userRepository.findByLogin("admin");
+        if (taskCategoryRepository.findByValueAndUser(category, user).isPresent())
+            taskCategory = taskCategoryRepository.findByValueAndUser(category, user).get();
+        else if (taskCategoryRepository.findByValueAndUser(category, admin).isPresent())
+            taskCategory = taskCategoryRepository.findByValueAndUser(category, admin).get();
+        else
+            throw new NoSuchEntityException("no such category");
+        return tasks
+                .stream()
+                .filter(t -> t.category.value.equals(taskCategory.getValue()))
                 .collect(Collectors.toList());
     }
 }

@@ -21,13 +21,13 @@ export class AuthenticationComponent implements OnInit {
     authenticate() {
         if (this.verifiableAuthenticationUser.password !== null &&
             this.verifiableAuthenticationUser.login !== null) {
-            this.authenticationService.authenticate(new RegisterUser(this.verifiableAuthenticationUser.login,
-                this.verifiableAuthenticationUser.password))
-                .subscribe(token => {
-                    console.log(token);
-                    this.router.navigate(['tasks']);
-
-                });
+            this.authenticationService.authenticate(
+                new RegisterUser(this.verifiableAuthenticationUser.login, this.verifiableAuthenticationUser.password)
+            ).subscribe(token => {
+                console.log(token);
+                localStorage.setItem('token', token);
+                this.router.navigate(['tasks']);
+            });
 
         }
     }

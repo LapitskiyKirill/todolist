@@ -5,14 +5,14 @@
   align-items: center;
   height: 100vh;
   width: 100vw;
-  background: whitesmoke;
+  background: white;
 }
 
 .auth-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: white;
+  background: whitesmoke;
   padding: 25px;
 
   p {
@@ -39,12 +39,12 @@
     button {
       border: none;
       color: white;
-      background: #92eca0;
-
+      background: #7a7a7a;
     }
 
     button:hover {
-      background: #78c584;
+      color: black;
+      background: #c9c9c9;
     }
   }
 }

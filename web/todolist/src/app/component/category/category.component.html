@@ -1,5 +1,6 @@
-<div class="category">
+<div class="category" *ngIf="category" [routerLink]="'category/' + category.value">
     <div>
-        {{category}}
+        {{category.value}}
     </div>
 </div>
+

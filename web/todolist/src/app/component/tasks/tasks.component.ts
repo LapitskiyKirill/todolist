@@ -1,7 +1,9 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {CategoryService} from '../../service/category.service';
 import {Category} from '../../dto/Category';
-import {map} from 'rxjs/operators';
+import {Task} from '../../dto/Task';
+import {TaskService} from '../../service/task.service';
+import {TokenProvider} from '../../provider/token.provider';
 
 @Component({
     selector: 'app-tasks',
@@ -9,13 +11,23 @@ import {map} from 'rxjs/operators';
     styleUrls: ['./tasks.component.scss']
 })
 export class TasksComponent implements OnInit {
-    categories: Array<Category>;
+    categories: Category[];
+    tasks: Task[];
 
-    constructor(private categoryService: CategoryService) {
+    constructor(
+        private categoryService: CategoryService,
+        private taskService: TaskService,
+        private tokenProvider: TokenProvider
+    ) {
 
     }
 
     ngOnInit() {
-        this.categoryService.getCategories().subscribe(c => this.categories = c);
+        this.tokenProvider.token.subscribe(t => {
+            this.categoryService.getCategories(t).subscribe(cs => {
+                this.categories = cs;
+            });
+
+        });
     }
 }

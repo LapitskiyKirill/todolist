@@ -1,8 +1,30 @@
-<div class="overlay">
+<div>
     <app-header>
-
     </app-header>
-    <app-category *ngFor="let category of categories" [category]="category">
-    </app-category>
-    <div class="add"><a>add category</a></div>
+    <div class="content">
+        <div class="categories" *ngIf="categories" >
+            <app-category *ngFor="let category of categories" [category]="category">
+            </app-category>
+
+            <div class="add">Add category</div>
+        </div>
+
+        <div class="menu">
+            <div class="Add">
+                <div>
+                    Add new task
+                </div>
+            </div>
+            <div class="Scheduled">
+                <div>
+                    Scheduled
+                </div>
+            </div>
+        </div>
+        <div class="tasks">
+            <router-outlet>
+
+            </router-outlet>
+        </div>
+    </div>
 </div>

@@ -5,6 +5,7 @@ import com.gmail.kirilllapitsky.todolist.dto.TokenDto;
 import com.gmail.kirilllapitsky.todolist.entity.Token;
 import com.gmail.kirilllapitsky.todolist.entity.User;
 import com.gmail.kirilllapitsky.todolist.exception.AuthenticationException;
+import com.gmail.kirilllapitsky.todolist.exception.NoSuchEntityException;
 import com.gmail.kirilllapitsky.todolist.repository.TokenRepository;
 import com.gmail.kirilllapitsky.todolist.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,8 +40,8 @@ public class AuthenticationService {
         return new TokenDto(token.getValue());
     }
 
-    public User validate(String tokenValue) {
-        return tokenRepository.findByValue(tokenValue).getUser();
+    public User validate(String tokenValue) throws NoSuchEntityException {
+        return tokenRepository.findByValue(tokenValue).orElseThrow(() -> new NoSuchEntityException("Invalid token")).getUser();
     }
 }
 

@@ -1,0 +1,44 @@
+.tasks {
+  grid-column: 3/13;
+
+
+
+  .taskInfo {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    background: #afacc4;
+    align-items: center;
+    justify-content: center;
+
+    div {
+      height: 50px;
+      border-top: 1px solid #bfbfbf;
+      border-bottom: 1px solid #bfbfbf;
+      text-align: center;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  .task {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    background: #ebebeb;
+    border-bottom: 1px solid #bfbfbf;
+
+    div {
+      height: 50px;
+      text-align: center;
+    }
+  }
+
+  .task:hover {
+    background: #cccccc;
+    border-bottom: 1px solid #bfbfbf;
+
+    div {
+      height: 50px;
+      text-align: center;
+    }
+  }
+}

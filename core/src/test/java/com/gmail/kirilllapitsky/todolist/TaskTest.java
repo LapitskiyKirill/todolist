@@ -7,6 +7,7 @@ import com.gmail.kirilllapitsky.todolist.dto.TokenDto;
 import com.gmail.kirilllapitsky.todolist.entity.Task;
 import com.gmail.kirilllapitsky.todolist.entity.User;
 import com.gmail.kirilllapitsky.todolist.exception.AuthenticationException;
+import com.gmail.kirilllapitsky.todolist.exception.NoSuchEntityException;
 import com.gmail.kirilllapitsky.todolist.repository.TaskRepository;
 import com.gmail.kirilllapitsky.todolist.repository.UserRepository;
 import com.gmail.kirilllapitsky.todolist.service.AuthenticationService;
@@ -38,7 +39,7 @@ public class TaskTest {
     private TaskService taskService;
 
     @Test
-    public void shouldCreateTask() throws AuthenticationException {
+    public void shouldCreateTask() throws AuthenticationException, NoSuchEntityException {
         registerService.register(new RegisterUserDto("nikita", "password"));
         TokenDto tokenDto = authenticationService.authenticate(new AuthenticationUserDto("nikita", "password"));
         User user = authenticationService.validate(tokenDto.token);

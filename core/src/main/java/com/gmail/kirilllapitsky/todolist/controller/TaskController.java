@@ -37,7 +37,7 @@ public class TaskController {
     }
 
     @PostMapping("create")
-    public TaskDto create(@RequestHeader("token") String token, @RequestBody NewTaskDto newTaskDto) {
+    public TaskDto create(@RequestHeader("token") String token, @RequestBody NewTaskDto newTaskDto) throws NoSuchEntityException {
         User user = authenticationService.validate(token);
         Task task = taskService.create(user, newTaskDto);
         return Mapper.map(task, TaskDto.class);
@@ -56,9 +56,15 @@ public class TaskController {
     }
 
     @GetMapping("getAll")
-    public List<TaskDto> getAll(@RequestHeader("token") String token) {
+    public List<TaskDto> getAll(@RequestHeader("token") String token) throws NoSuchEntityException {
         User user = authenticationService.validate(token);
         return taskService.all(user);
+    }
+
+    @GetMapping("getByCategory")
+    public List<TaskDto> getByCategory(@RequestHeader("token") String token, @RequestParam("category") String category) throws NoSuchEntityException {
+        User user = authenticationService.validate(token);
+        return taskService.getByCategory(user, category);
     }
 
     @PostMapping("check")
@@ -74,13 +80,13 @@ public class TaskController {
     }
 
     @PostMapping("checked")
-    public List<TaskDto> allChecked(@RequestHeader("token") String token) throws AuthenticationException {
+    public List<TaskDto> allChecked(@RequestHeader("token") String token) throws AuthenticationException, NoSuchEntityException {
         User user = authenticationService.validate(token);
         return taskService.allChecked(user);
     }
 
     @PostMapping("unchecked")
-    public List<TaskDto> allUnchecked(@RequestHeader("token") String token) throws AuthenticationException {
+    public List<TaskDto> allUnchecked(@RequestHeader("token") String token) throws AuthenticationException, NoSuchEntityException {
         User user = authenticationService.validate(token);
         return taskService.allUnchecked(user);
     }

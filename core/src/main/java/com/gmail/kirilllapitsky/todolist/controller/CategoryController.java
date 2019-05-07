@@ -32,13 +32,13 @@ public class CategoryController {
     }
 
     @PostMapping("createCategory")
-    public void createCategory(@RequestHeader("token") String token, @RequestBody NewCategoryDto newCategoryDto) {
+    public void createCategory(@RequestHeader("token") String token, @RequestBody NewCategoryDto newCategoryDto) throws NoSuchEntityException {
         User user = authenticationService.validate(token);
         categoryService.create(user, newCategoryDto);
     }
 
     @GetMapping("getCategories")
-    public List<CategoryDto> getCategories(@RequestHeader("token") String token) {
+    public List<CategoryDto> getCategories(@RequestHeader("token") String token) throws NoSuchEntityException {
         User user = authenticationService.validate(token);
         return categoryService.getCategories(user);
     }

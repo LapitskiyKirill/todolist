@@ -52,7 +52,7 @@ public class ScheduledController {
     }
 
     @GetMapping("getAll")
-    public List<ScheduledDto> getAllScheduled(@RequestHeader("token") String token) {
+    public List<ScheduledDto> getAllScheduled(@RequestHeader("token") String token) throws NoSuchEntityException {
         User user = authenticationService.validate(token);
         return Mapper.mapAll(scheduledService.getAll(user), ScheduledDto.class);
     }

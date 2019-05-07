@@ -1,0 +1,26 @@
+<div class="tasks">
+  <div class="taskInfo">
+    <div>Category</div>
+    <div>Task</div>
+    <div>Deadline</div>
+    <div>Completed</div>
+    <div>Subtasks</div>
+  </div>
+
+  <div *ngFor="let task of tasks">
+    <div class="task">
+      <div>  {{task.category.value}}</div>
+      <div>  {{task.text}}</div>
+      <div>
+        <div *ngIf="task.completed; else nullvalue"></div>
+        {{task.deadline}}</div>
+      <div>
+        <div *ngIf="task.completed; else nullvalue"></div>
+        {{task.completed}}</div>
+      <div class="subtasks">  {{task.subtasks.length}}</div>
+      <ng-template #nullvalue>
+        -
+      </ng-template>
+    </div>
+  </div>
+</div>

@@ -36,13 +36,13 @@ public class ScheduledEventController {
     }
 
     @GetMapping("complete")
-    public void complete(@RequestHeader("token") String token, @RequestParam("scheduledActivityId") Long scheduledActivityId) {
+    public void complete(@RequestHeader("token") String token, @RequestParam("scheduledActivityId") Long scheduledActivityId) throws NoSuchEntityException {
         User user = authenticationService.validate(token);
         scheduledActivityService.complete(user, scheduledActivityId);
     }
 
     @GetMapping("uncheck")
-    public void uncheck(@RequestHeader("token") String token, @RequestParam("scheduledActivityId") Long scheduledActivityId) {
+    public void uncheck(@RequestHeader("token") String token, @RequestParam("scheduledActivityId") Long scheduledActivityId) throws NoSuchEntityException {
         User user = authenticationService.validate(token);
         scheduledActivityService.uncheck(user, scheduledActivityId);
     }

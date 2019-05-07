@@ -43,7 +43,6 @@ public class ScheduledService {
         this.scheduledActivityRepository = scheduledActivityRepository;
     }
 
-    //    TODO: deal with business logic of task deletion
     public void delete(User user, Long taskId)
             throws NoSuchEntityException, AuthenticationException {
 

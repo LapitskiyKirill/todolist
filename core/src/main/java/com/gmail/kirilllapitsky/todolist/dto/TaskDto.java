@@ -7,7 +7,7 @@ import java.util.List;
 
 public class TaskDto {
     public Long id;
-    public String category;
+    public CategoryDto category;
     public String text;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     public LocalDateTime deadline;
@@ -19,7 +19,7 @@ public class TaskDto {
 
     }
 
-    public TaskDto(Long id, String category, String text, LocalDateTime deadline, LocalDateTime completed, List<TaskDto> subtasks) {
+    public TaskDto(Long id, CategoryDto category, String text, LocalDateTime deadline, LocalDateTime completed, List<TaskDto> subtasks) {
         this.id = id;
         this.category = category;
         this.text = text;

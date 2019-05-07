@@ -13,9 +13,9 @@ export class CategoryService {
     constructor(private http: HttpClient) {
     }
 
-    getCategories(): Observable<Array<Category>> {
-        return this.http.get<Array<Category>>(SERVER_PATH + '/category/getCategories',
-            {headers: {token: '9f781057-5976-481b-bace-7868014983e5'}});
+    getCategories(token: string): Observable<Category[]> {
+        return this.http.get<Category[]>(SERVER_PATH + '/category/getCategories',
+            {headers: {token: token}});
 
     }
 }
