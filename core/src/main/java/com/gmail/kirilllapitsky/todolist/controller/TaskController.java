@@ -67,25 +67,25 @@ public class TaskController {
         return taskService.getByCategory(user, category);
     }
 
-    @PostMapping("check")
+    @GetMapping("check")
     public void checking(@RequestHeader("token") String token, @RequestParam("taskId") Long taskId) throws NoSuchEntityException, AuthenticationException {
         User user = authenticationService.validate(token);
         taskService.check(user, taskId);
     }
 
-    @PostMapping("uncheck")
+    @GetMapping("uncheck")
     public void unChecking(@RequestHeader("token") String token, @RequestParam("taskId") Long taskId) throws NoSuchEntityException, AuthenticationException {
         User user = authenticationService.validate(token);
         taskService.unCheck(user, taskId);
     }
 
-    @PostMapping("checked")
+    @GetMapping("checked")
     public List<TaskDto> allChecked(@RequestHeader("token") String token) throws AuthenticationException, NoSuchEntityException {
         User user = authenticationService.validate(token);
         return taskService.allChecked(user);
     }
 
-    @PostMapping("unchecked")
+    @GetMapping("unchecked")
     public List<TaskDto> allUnchecked(@RequestHeader("token") String token) throws AuthenticationException, NoSuchEntityException {
         User user = authenticationService.validate(token);
         return taskService.allUnchecked(user);
