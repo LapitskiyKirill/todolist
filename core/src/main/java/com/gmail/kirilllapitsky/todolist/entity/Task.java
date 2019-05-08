@@ -45,7 +45,7 @@ public class Task {
     )
     private List<Task> subtasks;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn(name = "category_id")
     private TaskCategory category;
 
