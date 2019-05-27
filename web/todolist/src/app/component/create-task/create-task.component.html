@@ -1,0 +1,18 @@
+<div>
+  <app-header>
+  </app-header>
+  <div class="content">
+    <div class="categories" *ngIf="categories">
+      <app-category *ngFor="let category of categories" [category]="category">
+      </app-category>
+      <div class="add" [routerLink]="'/addCategory'">Add category</div>
+    </div>
+
+    <div class="menu">
+      <div class="back" [routerLink]="'/tasks'">
+        Back to all tasks
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,6 @@
+<div class="categories" *ngIf="categories">
+    <app-category *ngFor="let category of categories" [category]="category">
+    </app-category>
+
+    <div class="add" [routerLink]="'/addCategory'">Add category</div>
+</div>

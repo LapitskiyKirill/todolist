@@ -1,0 +1,21 @@
+.categories {
+  .active-category {
+    background: #9592aa;
+  }
+
+  .add {
+    height: 70px;
+    background: #7d7c8f;
+    color: white;
+    display: flex;
+    justify-self: end;
+    padding-left: 30%;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .add:hover {
+    background: #4b4b52;
+    color: white;
+  }
+}
