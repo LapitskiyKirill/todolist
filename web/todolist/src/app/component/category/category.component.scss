@@ -1,13 +1,17 @@
 .category {
   display: grid;
   height: 70px;
+
+  .active-category {
+    background: #4b4b52;
+  }
 }
 
 .category div {
   display: flex;
   padding-left: 30%;
   align-items: center;
-  justify-content: start;
+  justify-content: flex-start;
   background: #7d7c8f;
   color: white;
 

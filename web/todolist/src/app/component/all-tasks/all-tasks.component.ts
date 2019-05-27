@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {TaskService} from '../../service/task.service';
 import {TokenProvider} from '../../provider/token.provider';
 import {Task} from '../../dto/Task';
+import {AppComponent} from '../../app.component';
 
 @Component({
     selector: 'app-all-tasks',
@@ -12,6 +13,7 @@ export class AllTasksComponent implements OnInit {
     tasks: Task[];
 
     constructor(
+        private app: AppComponent,
         private taskService: TaskService,
         private tokenProvider: TokenProvider
     ) {
@@ -19,12 +21,13 @@ export class AllTasksComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.tokenProvider.token.subscribe(t => {
-            this.taskService.getAll(t).subscribe(ts => {
-                console.log(ts);
-                this.tasks = ts;
+        this.app.onLoad(() => {
+            this.tokenProvider.token.subscribe(t => {
+                this.taskService.getAll(t).subscribe(ts => {
+                    this.tasks = ts;
+                });
             });
         });
-    }
 
+    }
 }

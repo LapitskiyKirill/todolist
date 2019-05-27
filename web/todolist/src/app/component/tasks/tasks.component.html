@@ -1,13 +1,11 @@
+<script src="tasks.component.ts"></script>
 <div>
     <app-header>
     </app-header>
     <div class="content">
-        <div class="categories" *ngIf="categories">
-            <app-category *ngFor="let category of categories" [category]="category">
-            </app-category>
+        <app-categories>
 
-            <div class="add">Add category</div>
-        </div>
+        </app-categories>
 
         <div class="menu">
             <div class="addTask">
@@ -18,6 +16,9 @@
             </div>
             <div class="graphics">
                 Graphics
+            </div>
+            <div class="back" [routerLink]="'/tasks'">
+                Back to all tasks
             </div>
         </div>
         <div class="tasks">

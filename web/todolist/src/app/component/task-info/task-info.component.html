@@ -1,16 +1,18 @@
 <div>
     <app-header>
     </app-header>
-    <div class="content">
-        <div class="categories" *ngIf="categories">
-            <app-category *ngFor="let category of categories" [category]="category">
-            </app-category>
-            <div class="add">Add category</div>
-        </div>
+    <div class="content" >
+        <app-categories>
+
+        </app-categories>
+
 
         <div class="menu">
-            <div class="edit">
+            <div class="edit" [routerLink]="'/edit/' + task.id">
                 Edit task
+            </div>
+            <div class="delete" (click)="delete()" [routerLink]="'/tasks'">
+                Delete
             </div>
             <div class="back" [routerLink]="'/tasks'">
                 Back to all tasks
@@ -32,20 +34,25 @@
                     {{task.text}}
                 </div>
                 <div>
-                    <div *ngIf="task.completed; else nullvalue"></div>
-                    {{task.deadline}}
+                    <div *ngIf="task.deadline; else nullValue">
+                        {{task.deadline}}
+                    </div>
                 </div>
                 <div>
-                    <div *ngIf="task.completed; else complete"></div>
-                    {{task.completed}}
+                    <div *ngIf="task.completed; else complete">
+                        {{task.completed}}
+                        <div>
+                            <button class="submit-button" (click)="uncheck()">Undo</button>
+                        </div>
+                    </div>
                 </div>
-                <ng-template #nullvalue>
+                <ng-template #nullValue>
                     -
                 </ng-template>
                 <ng-template #complete>
-                    <label>
-                        <input type="checkbox" [checked]="check()">
-                    </label>
+                    <div>
+                        <button class="submit-button" (click)="check()">Done</button>
+                    </div>
                 </ng-template>
             </div>
         </div>

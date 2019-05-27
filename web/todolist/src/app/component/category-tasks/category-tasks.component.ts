@@ -1,8 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {TokenProvider} from '../../provider/token.provider';
 import {TaskService} from '../../service/task.service';
 import {Task} from '../../dto/Task';
+import {AppComponent} from '../../app.component';
 
 @Component({
     selector: 'app-category-tasks',
@@ -11,9 +12,11 @@ import {Task} from '../../dto/Task';
 })
 export class CategoryTasksComponent implements OnInit {
     tasks: Task[];
-    category: string;
+    @Input('currentCategoryNameOne')
+    currentCategoryName: string;
 
-    constructor(private activatedRoute: ActivatedRoute,
+    constructor(private app: AppComponent,
+                private activatedRoute: ActivatedRoute,
                 private taskService: TaskService,
                 private tokenProvider: TokenProvider
     ) {
@@ -21,15 +24,16 @@ export class CategoryTasksComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.activatedRoute.params.subscribe(params => this.category = params.categoryName);
-        this.tokenProvider.token.subscribe(t => {
-            this.taskService.getByCategory(t, this.category).subscribe(ts => {
-                console.log(this.category);
-                console.log(t);
-                this.tasks = ts;
+        this.app.onLoad(() => {
+            this.activatedRoute.params.subscribe(params => this.currentCategoryName = params['categoryName']);
+            this.tokenProvider.token.subscribe(t => {
+                this.taskService.getByCategory(t, this.currentCategoryName).subscribe(ts => {
+                    this.tasks = ts;
+                });
+            });
+            this.activatedRoute.params.subscribe(params => {
+                this.currentCategoryName = params['categoryName'];
             });
         });
-
     }
-
 }

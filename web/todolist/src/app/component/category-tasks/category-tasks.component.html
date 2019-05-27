@@ -1,26 +1,34 @@
 <div class="tasks">
-  <div class="taskInfo">
-    <div>Category</div>
-    <div>Task</div>
-    <div>Deadline</div>
-    <div>Completed</div>
-    <div>Subtasks</div>
-  </div>
-
-  <div *ngFor="let task of tasks">
-    <div class="task" [routerLink]="'/taskInfo/' + task.id">
-      <div>  {{task.category.value}}</div>
-      <div>  {{task.text}}</div>
-      <div>
-        <div *ngIf="task.completed; else nullvalue"></div>
-        {{task.deadline}}</div>
-      <div>
-        <div *ngIf="task.completed; else nullvalue"></div>
-        {{task.completed}}</div>
-      <div class="subtasks">  {{task.subtasks.length}}</div>
-      <ng-template #nullvalue>
-        -
-      </ng-template>
+    <div class="taskInfo">
+        <div>Category</div>
+        <div>Task</div>
+        <div>Deadline</div>
+        <div>Completed</div>
+        <div>Subtasks</div>
     </div>
-  </div>
+
+    <div *ngFor="let task of tasks">
+        <div class="task" [routerLink]="'/taskInfo/' + task.id">
+            <div>
+                {{task.category.value}}
+            </div>
+            <div>
+                {{task.text}}
+            </div>
+            <div>
+                <div *ngIf="task.deadline; else nullValue">
+                    {{task.deadline}}
+                </div>
+            </div>
+            <div>
+                <div *ngIf="task.completed; else nullValue">
+                    {{task.completed}}
+                </div>
+            </div>
+            <div class="subtasks">
+                {{task.subtasks.length}}
+            </div>
+            <ng-template #nullValue>-</ng-template>
+        </div>
+    </div>
 </div>

@@ -5,6 +5,7 @@ import {CategoryService} from '../../service/category.service';
 import {TokenProvider} from '../../provider/token.provider';
 import {Task} from 'src/app/dto/Task';
 import {TaskService} from '../../service/task.service';
+import {AppComponent} from '../../app.component';
 
 @Component({
     selector: 'app-task-info',
@@ -16,32 +17,47 @@ export class TaskInfoComponent implements OnInit {
     taskId: number;
     task: Task;
 
-    constructor(private activatedRoute: ActivatedRoute,
+    constructor(private app: AppComponent,
+                private activatedRoute: ActivatedRoute,
                 private categoryService: CategoryService,
                 private taskService: TaskService,
                 private tokenProvider: TokenProvider
     ) {
     }
 
-    check() {
+    delete() {
+        this.tokenProvider.token.subscribe(t => {
+            this.taskService.delete(t, this.taskId).subscribe();
+        });
+    }
 
+    check() {
+        this.tokenProvider.token.subscribe(t => {
+            this.taskService.check(t, this.taskId).subscribe();
+        });
+    }
+
+    uncheck() {
+        this.tokenProvider.token.subscribe(t => {
+            this.taskService.unCheck(t, this.taskId).subscribe();
+        });
     }
 
     ngOnInit() {
-        this.activatedRoute.params.subscribe(params => this.taskId = params.taskId);
-        this.tokenProvider.token.subscribe(t => {
-            this.categoryService.getCategories(t).subscribe(cs => {
-                this.categories = cs;
-            });
-            this.taskService.getAll(t).subscribe(ts => {
-                ts.forEach(t => {
-                    console.log(t);
-                    if (t.id == this.taskId) {
-                        this.task = t;
-                    }
+        this.app.onLoad(() => {
+            this.activatedRoute.params.subscribe(params => this.taskId = params['taskId']);
+            this.tokenProvider.token.subscribe(t => {
+                this.categoryService.getCategories(t).subscribe(cs => {
+                    this.categories = cs;
+                });
+                this.taskService.getAll(t).subscribe(ts => {
+                    ts.forEach(t => {
+                        if (t.id == this.taskId) {
+                            this.task = t;
+                        }
+                    });
                 });
             });
-
         });
     }
 }

@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {VerifiableAuthenticationUser} from '../../dto/VerifiableAuthenticationUser';
-import {RegisterUser} from '../../dto/RegisterUser';
 import {AuthenticationService} from '../../service/authentication.service';
 import {Router} from '@angular/router';
+import {AuthenticationUser} from '../../dto/AuthenticationUser';
 
 @Component({
     selector: 'app-authentication',
@@ -22,9 +22,8 @@ export class AuthenticationComponent implements OnInit {
         if (this.verifiableAuthenticationUser.password !== null &&
             this.verifiableAuthenticationUser.login !== null) {
             this.authenticationService.authenticate(
-                new RegisterUser(this.verifiableAuthenticationUser.login, this.verifiableAuthenticationUser.password)
+                new AuthenticationUser(this.verifiableAuthenticationUser.login, this.verifiableAuthenticationUser.password)
             ).subscribe(token => {
-                console.log(token);
                 localStorage.setItem('token', token);
                 this.router.navigate(['tasks']);
             });

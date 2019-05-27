@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {SERVER_PATH} from '../../../globals';
+import {TokenService} from '../../service/token.service';
+import {TokenProvider} from '../../provider/token.provider';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-header',
@@ -10,17 +12,20 @@ import {SERVER_PATH} from '../../../globals';
 export class HeaderComponent implements OnInit {
 
     constructor(private http: HttpClient,
+                private tokenService: TokenService,
+                private tokenProvider: TokenProvider,
+                private router: Router
     ) {
     }
 
     logout() {
-        this.http.get(SERVER_PATH + '/token/delete', {
-            params: {
-                token: localStorage.getItem('token')
-            }
-        }).subscribe();
+        console.log('logout');
+        this.tokenService.remove(localStorage.getItem('token')).subscribe(success => {
+            localStorage.removeItem('token');
+            this.router.navigate(['/auth']);
+        });
+        console.log('logout3');
     }
-
 
     ngOnInit() {
     }

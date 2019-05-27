@@ -7,7 +7,7 @@ import {Category} from '../../dto/Category';
     styleUrls: ['./category.component.scss']
 })
 export class CategoryComponent implements OnInit {
-    @Input('category')
+    @Input()
     category: Category;
 
     constructor() {

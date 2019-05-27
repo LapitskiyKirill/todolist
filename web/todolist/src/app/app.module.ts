@@ -14,6 +14,9 @@ import { AllTasksComponent } from './component/all-tasks/all-tasks.component';
 import { CategoryTasksComponent } from './component/category-tasks/category-tasks.component';
 import { TaskInfoComponent } from './component/task-info/task-info.component';
 import { EditTaskComponent } from './component/edit-task/edit-task.component';
+import { AddCategoryComponent } from './component/add-category/add-category.component';
+import { CategoriesComponent } from './component/categories/categories.component';
+import { CreateTaskComponent } from './component/create-task/create-task.component';
 
 @NgModule({
     declarations: [
@@ -26,7 +29,10 @@ import { EditTaskComponent } from './component/edit-task/edit-task.component';
         AllTasksComponent,
         CategoryTasksComponent,
         TaskInfoComponent,
-        EditTaskComponent
+        EditTaskComponent,
+        AddCategoryComponent,
+        CategoriesComponent,
+        CreateTaskComponent
     ],
     imports: [
         BrowserModule,

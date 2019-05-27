@@ -2,7 +2,8 @@ import {Category} from './Category';
 
 export class NewTask {
     text: string;
-    deadline: Date;
+    deadline: string;
     category: Category;
     subtasks: NewTask[];
 }
+

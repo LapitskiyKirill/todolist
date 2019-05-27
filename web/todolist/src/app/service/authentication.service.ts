@@ -13,11 +13,11 @@ export class AuthenticationService {
     constructor(private http: HttpClient) {
     }
 
-    public authenticate(authenticationUser: AuthenticationUser): Observable<string> {
+    authenticate(authenticationUser: AuthenticationUser): Observable<string> {
         return this.http.post<string>(SERVER_PATH + '/authenticate', authenticationUser, {responseType: 'text' as 'json'});
     }
 
-    public validate(token: string): Observable<User> {
+    validate(token: string): Observable<User> {
         return this.http.get<User>(SERVER_PATH + '/authenticate/validate', {
             params: {
                 token: token

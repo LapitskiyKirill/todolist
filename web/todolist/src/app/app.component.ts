@@ -9,12 +9,13 @@ import {TokenProvider} from './provider/token.provider';
     styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+    isLoaded: boolean = false;
+
     constructor(
         private router: Router,
         private authenticationService: AuthenticationService,
         private tokenProvider: TokenProvider
     ) {
-
         this.router.events.subscribe(
             (event: any) => {
                 if (event instanceof NavigationEnd) {
@@ -24,23 +25,38 @@ export class AppComponent {
             }
         );
     }
-//TODO: refactor
+
+    onLoad(loaded: () => void) {
+        setTimeout(() => {
+            if (this.isLoaded) {
+                console.debug('onload: loaded...');
+                loaded();
+            } else {
+                this.onLoad(loaded);
+                console.debug('onload: waiting...');
+            }
+        }, 10);
+    }
+
     autoLogin(url: string) {
+        console.log('autolog');
         const lsToken = localStorage.getItem('token');
         if (lsToken) {
             this.authenticationService.validate(lsToken).subscribe(u => {
                 this.tokenProvider.setToken(lsToken);
+                this.isLoaded = true;
                 if (url === '/') {
                     this.router.navigate(['/tasks']);
                 } else {
                     this.router.navigate([url]);
                 }
             }, e => {
-                this.router.navigate(['/auth']);
-                // TODO: out token key name in localstorage as const
                 localStorage.removeItem('token');
+                this.isLoaded = true;
+                this.router.navigate(['/auth']);
             });
         } else {
+            this.isLoaded = true;
             if (url === '/register') {
                 this.router.navigate(['/register']);
             } else {

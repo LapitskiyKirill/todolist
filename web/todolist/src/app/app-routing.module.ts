@@ -6,6 +6,8 @@ import {TasksComponent} from './component/tasks/tasks.component';
 import {CategoryTasksComponent} from './component/category-tasks/category-tasks.component';
 import {AllTasksComponent} from './component/all-tasks/all-tasks.component';
 import {TaskInfoComponent} from './component/task-info/task-info.component';
+import {AddCategoryComponent} from './component/add-category/add-category.component';
+import {EditTaskComponent} from './component/edit-task/edit-task.component';
 
 const routes: Routes = [
     {
@@ -34,6 +36,14 @@ const routes: Routes = [
     {
         path: 'taskInfo/:taskId',
         component: TaskInfoComponent
+    },
+    {
+        path: 'addCategory',
+        component: AddCategoryComponent
+    },
+    {
+        path: 'edit/:taskId',
+        component: EditTaskComponent
     }
 ];
 
