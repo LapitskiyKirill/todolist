@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -65,11 +66,12 @@ public class ScheduledService {
             throw new AuthenticationException();
         Scheduled scheduled = new Scheduled(task, newScheduledDto.from, newScheduledDto.periodicity);
 
+        scheduledRepository.save(scheduled);
         if (scheduled.getFrom().toLocalDate().equals(LocalDate.now())) {
-            scheduledActivityRepository.save(new ScheduledActivity(scheduled, null));
+            scheduledActivityRepository.save(new ScheduledActivity(scheduled, null, LocalDateTime.now()));
         }
 
-        scheduledRepository.save(scheduled);
+
         return scheduled;
     }
 

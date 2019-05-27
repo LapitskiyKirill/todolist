@@ -1,5 +1,6 @@
 package com.gmail.kirilllapitsky.todolist.controller;
 
+import com.gmail.kirilllapitsky.todolist.dto.EditTaskDto;
 import com.gmail.kirilllapitsky.todolist.dto.NewTaskDto;
 import com.gmail.kirilllapitsky.todolist.dto.TaskDto;
 import com.gmail.kirilllapitsky.todolist.entity.Task;
@@ -50,9 +51,9 @@ public class TaskController {
     }
 
     @PostMapping("edit")
-    public TaskDto edit(@RequestHeader("token") String token, @RequestParam("taskId") Long taskId, @RequestBody NewTaskDto newTaskDto) throws NoSuchEntityException, AuthenticationException {
+    public TaskDto edit(@RequestHeader("token") String token, @RequestParam("taskId") Long taskId, @RequestBody EditTaskDto editTaskDto) throws NoSuchEntityException, AuthenticationException {
         User user = authenticationService.validate(token);
-        return taskService.edit(user, taskId, newTaskDto);
+        return taskService.edit(user, taskId, editTaskDto);
     }
 
     @GetMapping("getAll")

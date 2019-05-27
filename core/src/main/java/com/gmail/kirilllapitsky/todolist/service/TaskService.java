@@ -1,6 +1,6 @@
 package com.gmail.kirilllapitsky.todolist.service;
 
-import com.gmail.kirilllapitsky.todolist.dto.CategoryDto;
+import com.gmail.kirilllapitsky.todolist.dto.EditTaskDto;
 import com.gmail.kirilllapitsky.todolist.dto.NewTaskDto;
 import com.gmail.kirilllapitsky.todolist.dto.TaskDto;
 import com.gmail.kirilllapitsky.todolist.entity.Task;
@@ -75,13 +75,21 @@ public class TaskService {
             throw new AuthenticationException();
     }
 
-    public TaskDto edit(User user, Long taskId, NewTaskDto newTaskDto) throws NoSuchEntityException, AuthenticationException {
+    public TaskDto edit(User user, Long taskId, EditTaskDto editTaskDto) throws NoSuchEntityException, AuthenticationException {
         Task task = taskRepository.findById(taskId)
                 .orElseThrow(NoSuchEntityException::new);
 
-        task.setCategory(new TaskCategory(user, newTaskDto.category));
-        task.setText(newTaskDto.text);
-        task.setDeadline(newTaskDto.deadline);
+        TaskCategory taskCategory = task.getCategory();
+        User admin = userRepository.findByLogin("admin");
+        if (taskCategoryRepository.findByValueAndUser(editTaskDto.category, admin).isPresent()) {
+            taskCategory = taskCategoryRepository.findByValueAndUser(editTaskDto.category, admin).get();
+        } else if (editTaskDto.category != null && taskCategoryRepository.findByValueAndUser(editTaskDto.category, user).isPresent()) {
+            Optional<TaskCategory> taskCategoryOptional = taskCategoryRepository.findByValueAndUser(editTaskDto.category, user);
+            taskCategory = taskCategoryOptional.orElseGet(() -> new TaskCategory(user, editTaskDto.category));
+        }
+        task.setCategory(taskCategory);
+        task.setText(editTaskDto.text);
+        task.setDeadline(editTaskDto.deadline);
 
         if (!task.getUser().getId().equals(user.getId()))
             throw new AuthenticationException();

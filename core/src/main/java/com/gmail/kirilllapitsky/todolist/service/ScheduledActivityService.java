@@ -49,7 +49,9 @@ public class ScheduledActivityService {
                     scheduledActivity.setComplete(LocalDateTime.now());
                 }
             }
+            scheduledActivityRepository.save(scheduledActivity);
         }
+
     }
 
     public void uncheck(User user, Long scheduledActivityId) {
@@ -61,6 +63,7 @@ public class ScheduledActivityService {
                     scheduledActivity.setComplete(null);
                 }
             }
+            scheduledActivityRepository.save(scheduledActivity);
         }
     }
 }

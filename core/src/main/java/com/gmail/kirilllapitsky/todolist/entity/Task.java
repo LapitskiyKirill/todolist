@@ -37,7 +37,7 @@ public class Task {
     @Column(name = "completed")
     private LocalDateTime completed;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany()
     @JoinTable(
             name = "main_task_subtask",
             joinColumns = @JoinColumn(name = "main_task_id"),

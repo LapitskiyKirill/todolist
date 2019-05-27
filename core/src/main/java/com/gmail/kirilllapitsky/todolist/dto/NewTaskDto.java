@@ -7,7 +7,7 @@ import java.util.List;
 
 public class NewTaskDto {
     public String text;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     public LocalDateTime deadline;
     public String category;
     public List<NewTaskDto> subTasks;

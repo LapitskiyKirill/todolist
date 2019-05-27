@@ -23,7 +23,7 @@ public class ScheduledActivity {
     @JoinColumn(name = "scheduled_id")
     private Scheduled scheduled;
 
-    @Column(name = "complete")
+    @Column(name = "completed")
     private LocalDateTime complete;
 
     @Column(name = "date")
