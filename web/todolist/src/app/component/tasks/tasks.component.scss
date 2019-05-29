@@ -3,7 +3,7 @@
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   height: 100vh;
-  width: 100vw;
+  width: 99vw;
   grid-template-rows: 70px auto;
 }
 
@@ -36,7 +36,7 @@ app-categories {
 
 .menu {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   height: 70px;
   grid-column: 3/13;
   grid-row: 1/2;
@@ -65,19 +65,8 @@ app-categories {
     background: #85829a;
   }
 
-  .graphics {
-    grid-column: 3/4;
-    justify-self: center;
-    padding: 20px;
-    border-radius: 75px;
-  }
-
-  .graphics:hover {
-    background: #85829a;
-  }
-
   .back {
-    grid-column: 4/5;
+    grid-column: 3/4;
     justify-self: center;
     padding: 20px;
     border-radius: 75px;

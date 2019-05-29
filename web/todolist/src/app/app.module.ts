@@ -17,6 +17,12 @@ import { EditTaskComponent } from './component/edit-task/edit-task.component';
 import { AddCategoryComponent } from './component/add-category/add-category.component';
 import { CategoriesComponent } from './component/categories/categories.component';
 import { CreateTaskComponent } from './component/create-task/create-task.component';
+import { ScheduledComponent } from './component/scheduled/scheduled.component';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import { AddTaskComponent } from './component/add-task/add-task.component';
+import { MakeScheduledComponent } from './component/make-scheduled/make-scheduled.component';
+import { ScheduledsComponent } from './component/scheduleds/scheduleds.component';
+import { ActivitiesComponent } from './component/activities/activities.component';
 
 @NgModule({
     declarations: [
@@ -32,13 +38,19 @@ import { CreateTaskComponent } from './component/create-task/create-task.compone
         EditTaskComponent,
         AddCategoryComponent,
         CategoriesComponent,
-        CreateTaskComponent
+        CreateTaskComponent,
+        ScheduledComponent,
+        AddTaskComponent,
+        MakeScheduledComponent,
+        ScheduledsComponent,
+        ActivitiesComponent
     ],
     imports: [
         BrowserModule,
         AppRoutingModule,
         FormsModule,
-        HttpClientModule
+        HttpClientModule,
+        AngularFontAwesomeModule
 
     ],
     providers: [],

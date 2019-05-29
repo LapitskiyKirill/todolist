@@ -51,9 +51,10 @@ public class ScheduledService {
                 .orElseThrow(NoSuchEntityException::new);
         Scheduled scheduled = scheduledRepository.findByTask(task)
                 .orElseThrow(NoSuchEntityException::new);
-        if (task.getUser().getId().equals(user.getId()))
-            scheduledRepository.delete(scheduled);
-        else
+        if (task.getUser().getId().equals(user.getId())) {
+            scheduled.setDeleted(true);
+            scheduledRepository.save(scheduled);
+        } else
             throw new AuthenticationException();
 
     }
@@ -71,7 +72,7 @@ public class ScheduledService {
             scheduledActivityRepository.save(new ScheduledActivity(scheduled, null, LocalDateTime.now()));
         }
 
-
+        scheduled.setDeleted(false);
         return scheduled;
     }
 
@@ -89,6 +90,7 @@ public class ScheduledService {
 
         scheduled.setFrom(editScheduledDto.from);
         scheduled.setPeriodicity(editScheduledDto.periodicity);
+        scheduled.setDeleted(false);
         scheduledRepository.save(scheduled);
         return scheduled;
     }
@@ -141,5 +143,6 @@ public class ScheduledService {
 
         return localDates;
     }
+
 
 }

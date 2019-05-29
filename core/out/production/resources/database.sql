@@ -78,14 +78,15 @@ alter table main_task_subtask
 
 create table scheduled
 (
-  id          bigserial not null
+  id          bigserial             not null
     constraint scheduled_pk
       primary key,
-  task_id     integer   not null
+  task_id     integer               not null
     constraint scheduled_task_id_fk
       references task,
-  "from"      timestamp not null,
-  periodicity varchar   not null
+  "from"      timestamp             not null,
+  periodicity varchar               not null,
+  deleted     boolean default false not null
 );
 
 alter table scheduled

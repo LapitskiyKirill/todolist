@@ -8,17 +8,14 @@
         </app-categories>
 
         <div class="menu">
-            <div class="addTask">
+            <div class="addTask" [routerLink]="'/addTask'" >
                 Add new task
             </div>
-            <div class="scheduled">
+            <div class="scheduled" [routerLink]="'/scheduled'">
                 Scheduled
             </div>
-            <div class="graphics">
-                Graphics
-            </div>
             <div class="back" [routerLink]="'/tasks'">
-                Back to all tasks
+                Refresh
             </div>
         </div>
         <div class="tasks">

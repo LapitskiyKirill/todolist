@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 public class EditScheduledDto {
     public Long taskId;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     public LocalDateTime from;
     public Periodicity periodicity;
 

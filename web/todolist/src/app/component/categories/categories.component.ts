@@ -15,18 +15,14 @@ export class CategoriesComponent implements OnInit {
 
     constructor(
         private app: AppComponent,
-        private categoryService: CategoryService,
-        private taskService: TaskService,
-        private tokenProvider: TokenProvider) {
+        private categoryService: CategoryService
+    ) {
     }
 
     ngOnInit() {
         this.app.onLoad(() => {
-
-            this.tokenProvider.token.subscribe(t => {
-                this.categoryService.getCategories(t).subscribe(cs => {
-                    this.categories = cs;
-                });
+            this.categoryService.getCategories(localStorage.getItem('token')).subscribe(cs => {
+                this.categories = cs;
             });
         });
     }

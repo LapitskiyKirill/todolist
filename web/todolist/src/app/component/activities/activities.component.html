@@ -1,0 +1,14 @@
+<div class="scheduleds" *ngIf="activities">
+  <div class="scheduledsInfo">
+    <div (click)="getTodays()">Text</div>
+    <div>Date</div>
+  </div>
+  <div class="task" *ngFor="let activity of activities">
+    <div class="text">
+      {{activity.text}}
+    </div>
+    <div class="date">
+      Today
+    </div>
+  </div>
+</div>

@@ -30,8 +30,12 @@ public class Scheduled {
     @Column(name = "periodicity")
     private Periodicity periodicity;
 
+    @Column(name = "deleted")
+    private boolean deleted;
+
     public Scheduled() {
     }
+
 
     public Scheduled(Task task, LocalDateTime from, Periodicity periodicity) {
         this.task = task;
@@ -41,6 +45,10 @@ public class Scheduled {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public Task getTask() {
@@ -65,5 +73,13 @@ public class Scheduled {
 
     public void setPeriodicity(Periodicity periodicity) {
         this.periodicity = periodicity;
+    }
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
     }
 }

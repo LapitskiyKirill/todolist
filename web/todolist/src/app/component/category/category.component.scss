@@ -9,15 +9,32 @@
 
 .category div {
   display: flex;
-  padding-left: 30%;
   align-items: center;
   justify-content: flex-start;
-  background: #7d7c8f;
+
   color: white;
 
+  div {
+    display: inherit;
+    padding-left: 30%;
+    align-items: inherit;
+    justify-content: inherit;
+    background: inherit;
+    color: inherit;
+  }
+  .icon{
+    padding-left: 3px;
+    i{
+      color: #ff8aaa;
+    }
+  }
 }
 
 .category div:hover {
   background: #4b4b52;
   color: white;
+}
+
+.active-category{
+  display: none;
 }

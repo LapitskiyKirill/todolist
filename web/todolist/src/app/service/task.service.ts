@@ -3,9 +3,8 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Task} from '../dto/Task';
 import {SERVER_PATH} from '../../globals';
-import {RegisterUser} from '../dto/RegisterUser';
-import {TokenProvider} from '../provider/token.provider';
 import {EditTask} from '../dto/EditTask';
+import {NewTask} from '../dto/NewTask';
 
 @Injectable({
     providedIn: 'root'
@@ -15,6 +14,14 @@ export class TaskService {
     constructor(
         private http: HttpClient
     ) {
+    }
+
+    create(token: string, newTask: NewTask): Observable<Task> {
+        return this.http.post<Task>(SERVER_PATH + '/task/create', newTask, {
+            headers: {
+                token: token
+            }
+        });
     }
 
     public getAll(token: string): Observable<Task[]> {

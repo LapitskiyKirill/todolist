@@ -1,8 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {CategoryService} from '../../service/category.service';
-import {Category} from '../../dto/Category';
-import {TaskService} from '../../service/task.service';
-import {TokenProvider} from '../../provider/token.provider';
+import {AppComponent} from '../../app.component';
 
 @Component({
     selector: 'app-tasks',
@@ -11,10 +8,11 @@ import {TokenProvider} from '../../provider/token.provider';
 })
 export class TasksComponent implements OnInit {
 
-    constructor() {
+    constructor(private app: AppComponent) {
 
     }
 
     ngOnInit() {
+
     }
 }

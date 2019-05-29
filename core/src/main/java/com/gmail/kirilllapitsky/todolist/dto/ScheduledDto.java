@@ -7,9 +7,11 @@ import java.time.LocalDateTime;
 
 public class ScheduledDto {
     public Long id;
+    public Long taskId;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     public LocalDateTime from;
     public Periodicity periodicity;
+    public boolean deleted;
 
     public ScheduledDto() {
     }

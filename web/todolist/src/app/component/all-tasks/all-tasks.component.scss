@@ -2,7 +2,6 @@
   grid-column: 3/13;
 
 
-
   .taskInfo {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
@@ -12,6 +11,7 @@
 
     div {
       height: 50px;
+      display: flex;
       border-top: 1px solid #bfbfbf;
       border-bottom: 1px solid #bfbfbf;
       text-align: center;
@@ -40,5 +40,47 @@
       height: 50px;
       text-align: center;
     }
+  }
+}
+
+.deadline {
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+
+  div {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+
+  }
+
+  i {
+    justify-self: end;
+    padding-left: 3px;
+    color: red;
+  }
+
+}
+
+.task {
+  div {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.complete {
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+
+  i {
+    color: green;
   }
 }

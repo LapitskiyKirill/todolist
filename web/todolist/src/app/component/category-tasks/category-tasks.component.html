@@ -15,20 +15,26 @@
             <div>
                 {{task.text}}
             </div>
-            <div>
+            <div class="deadline">
                 <div *ngIf="task.deadline; else nullValue">
                     {{task.deadline}}
                 </div>
-            </div>
-            <div>
-                <div *ngIf="task.completed; else nullValue">
-                    {{task.completed}}
+                <div *ngIf="tasksId.includes(task.id)">
+                    <i class="fas fa-exclamation-triangle"></i>
                 </div>
+            </div>
+            <div class="complete">
+                <div *ngIf="task.completed; else nullValue">
+                    <i class="fas fa-check"></i>
+                </div>
+
             </div>
             <div class="subtasks">
                 {{task.subtasks.length}}
             </div>
-            <ng-template #nullValue>-</ng-template>
+            <ng-template #nullValue>
+                <i class="fas fa-times"></i>
+            </ng-template>
         </div>
     </div>
 </div>

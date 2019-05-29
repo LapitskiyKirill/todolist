@@ -4,7 +4,7 @@ import {CategoryService} from '../../service/category.service';
 import {TokenProvider} from '../../provider/token.provider';
 import {EditTask} from '../../dto/EditTask';
 import {TaskService} from '../../service/task.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Task} from 'src/app/dto/Task';
 import * as moment from 'moment';
 import {AppComponent} from '../../app.component';
@@ -26,7 +26,8 @@ export class EditTaskComponent implements OnInit {
                 private activatedRoute: ActivatedRoute,
                 private categoryService: CategoryService,
                 private tokenProvider: TokenProvider,
-                private taskService: TaskService
+                private taskService: TaskService,
+                private router: Router
     ) {
 
     }
@@ -35,10 +36,9 @@ export class EditTaskComponent implements OnInit {
         if (this.editTask.deadline === 'Invalid date') {
             this.editTask.deadline = null;
         }
-        this.tokenProvider.token.subscribe(t => {
-            this.taskService.edit(t, this.taskId, this.editTask).subscribe();
-        });
-
+        console.log(this.editTask);
+        this.taskService.edit(localStorage.getItem('token'), this.taskId, this.editTask).subscribe();
+        this.router.navigate(['tasks']);
     }
 
     ngOnInit() {
@@ -60,5 +60,4 @@ export class EditTaskComponent implements OnInit {
             });
         });
     }
-
 }

@@ -1,0 +1,18 @@
+<div class="scheduleds" *ngIf="scheduledTasks">
+    <div class="scheduledsInfo">
+        <div>Text</div>
+        <div>From</div>
+        <div>Periodicity</div>
+    </div>
+    <div class="task" *ngFor="let scheduled of scheduledTasks">
+        <div class="scheduled">
+            {{scheduled.text}}
+        </div>
+        <div class="from">
+            {{scheduled.from}}
+        </div>
+        <div class="periodicity">
+            {{scheduled.periodicity}}
+        </div>
+    </div>
+</div>

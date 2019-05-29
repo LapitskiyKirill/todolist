@@ -36,7 +36,7 @@ app-categories {
 
 .menu {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   height: 70px;
   grid-column: 3/13;
   grid-row: 1/2;
@@ -50,12 +50,23 @@ app-categories {
     border-radius: 75px;
   }
 
+  .scheduled {
+    grid-column: 2/3;
+    justify-self: center;
+    padding: 20px;
+    border-radius: 75px;
+  }
+  .scheduled:hover {
+    background: #85829a;
+  }
+
+
   .edit:hover {
     background: #85829a;
   }
 
   .delete {
-    grid-column: 2/3;
+    grid-column: 3/4;
     justify-self: center;
     padding: 20px;
     border-radius: 75px;
@@ -67,7 +78,7 @@ app-categories {
   }
 
   .back {
-    grid-column: 3/4;
+    grid-column: 4/5;
     justify-self: center;
     padding: 20px;
     border-radius: 75px;
@@ -115,7 +126,21 @@ app-categories {
   }
 }
 
+.deadline {
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
+i {
+  padding-left: 3px;
+  color: red;
+}
+
 button {
   height: 25px;
   width: 60px;
 }
+
+

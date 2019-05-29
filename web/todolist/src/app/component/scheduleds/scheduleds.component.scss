@@ -1,0 +1,56 @@
+.scheduleds {
+  grid-column: 3/13;
+
+
+  .scheduledsInfo {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    background: #afacc4;
+    align-items: center;
+    justify-content: center;
+
+    div {
+      height: 50px;
+      display: flex;
+      border-top: 1px solid #bfbfbf;
+      border-bottom: 1px solid #bfbfbf;
+      text-align: center;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  .task {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    background: #ebebeb;
+    border-bottom: 1px solid #bfbfbf;
+
+    div {
+      height: 50px;
+      text-align: center;
+    }
+  }
+
+  .scheduled {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .from {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .periodicity {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+  }
+}
+

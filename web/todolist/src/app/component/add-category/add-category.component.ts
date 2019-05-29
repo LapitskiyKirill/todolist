@@ -6,6 +6,7 @@ import {CategoryService} from '../../service/category.service';
 import {TaskService} from '../../service/task.service';
 import {TokenProvider} from '../../provider/token.provider';
 import {NewCategory} from '../../dto/NewCategory';
+import {AppComponent} from '../../app.component';
 
 @Component({
     selector: 'app-add-category',
@@ -16,7 +17,7 @@ export class AddCategoryComponent implements OnInit {
     newCategory: NewCategory = new NewCategory();
     categories: Category[];
 
-    constructor(
+    constructor(private app:AppComponent,
         private categoryService: CategoryService,
         private tokenProvider: TokenProvider,
         private router: Router
@@ -25,22 +26,19 @@ export class AddCategoryComponent implements OnInit {
 
     create() {
         if (this.newCategory.value !== null) {
-            console.log(this.newCategory);
-            this.router.navigate(['/tasks']);
-            this.tokenProvider.token.subscribe(t => {
-                this.categoryService.create(t, this.newCategory).subscribe();
-
-            });
+                this.categoryService.create(localStorage.getItem('token'), this.newCategory).subscribe();
         }
     }
 
     ngOnInit() {
-        this.tokenProvider.token.subscribe(t => {
-            this.categoryService.getCategories(t).subscribe(cs => {
-                this.categories = cs;
+        this.app.onLoad(() => {
+            this.tokenProvider.token.subscribe(t => {
+                this.categoryService.getCategories(t).subscribe(cs => {
+                    this.categories = cs;
+                });
+
+
             });
-
-
         });
     }
 

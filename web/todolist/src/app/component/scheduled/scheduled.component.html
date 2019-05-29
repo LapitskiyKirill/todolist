@@ -1,0 +1,30 @@
+<div>
+    <app-header>
+    </app-header>
+    <div class="content">
+        <app-categories>
+
+        </app-categories>
+
+        <div class="menu">
+            <div class="scheduleds" [routerLink]="'/scheduled'">
+                Scheduleds
+            </div>
+            <div class="activities" [routerLink]="'/scheduled/activities'">
+                Activities
+            </div>
+            <div class="graphics">
+                Graphics
+            </div>
+            <div class="back" [routerLink]="'/tasks'">
+                Back to all tasks
+            </div>
+        </div>
+        <div class="tasks">
+            <router-outlet>
+
+            </router-outlet>
+        </div>
+    </div>
+</div>
+

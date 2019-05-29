@@ -1,0 +1,40 @@
+<div>
+    <app-header>
+    </app-header>
+    <div class="content">
+        <app-categories>
+
+        </app-categories>
+        <div class="menu">
+            <div class="back" [routerLink]="'/tasks'">
+                Back to all tasks
+            </div>
+        </div>
+
+        <div class="schedule">
+            <form (ngSubmit)="schedule()">
+                <p>Choose periodicity</p>
+
+                <div class="from">
+                    <p>First execution:</p>
+                    <label>
+                        <input type="datetime-local" [value]="newScheduled.from"
+                               (change)="newScheduled.from=$event.target.value"
+                               name="from">
+                    </label>
+                </div>
+                <div class="category">
+                    <p>Category:</p>
+                    <div class="select-wrapper">
+                        <select [(ngModel)]="newScheduled.periodicity" name="periodicity">
+                            <option *ngFor="let periodicity of periodicities">
+                                {{periodicity}}</option>
+                        </select>
+                    </div>
+                </div>
+                <button class="submit-button" type="submit">Make scheduled</button>
+            </form>
+        </div>
+
+    </div>
+</div>

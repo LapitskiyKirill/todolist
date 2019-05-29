@@ -1,8 +1,8 @@
 export class Category {
-    public id: bigint;
+    public id: number;
     public value: string;
 
-    constructor(id: bigint, value: string) {
+    constructor(id: number, value: string) {
         this.id = id;
         this.value = value;
     }

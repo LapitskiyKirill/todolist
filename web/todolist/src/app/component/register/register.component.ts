@@ -10,13 +10,9 @@ import {Router} from '@angular/router';
     styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
-    private verifiableRegisterUser: VerifiableRegisterUser = new VerifiableRegisterUser();
+    public verifiableRegisterUser: VerifiableRegisterUser = new VerifiableRegisterUser();
 
     constructor(private registerService: RegisterService, private router: Router) {
-    }
-
-
-    ngOnInit() {
     }
 
     register() {
@@ -30,4 +26,9 @@ export class RegisterComponent implements OnInit {
 
         }
     }
+
+    ngOnInit() {
+    }
+
+
 }

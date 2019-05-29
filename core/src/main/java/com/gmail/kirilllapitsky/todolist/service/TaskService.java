@@ -47,9 +47,6 @@ public class TaskService {
         } else if (newTaskDto.category != null && taskCategoryRepository.findByValueAndUser(newTaskDto.category, user).isPresent()) {
             Optional<TaskCategory> taskCategoryOptional = taskCategoryRepository.findByValueAndUser(newTaskDto.category, user);
             taskCategory = taskCategoryOptional.orElseGet(() -> new TaskCategory(user, newTaskDto.category));
-        } else if (newTaskDto.category != null) {
-            taskCategory = new TaskCategory(user, newTaskDto.category);
-            taskCategoryRepository.save(taskCategory);
         }
 
         Task task = new Task(
