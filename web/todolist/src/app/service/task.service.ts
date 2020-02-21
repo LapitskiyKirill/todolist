@@ -44,7 +44,6 @@ export class TaskService {
     }
 
     check(token: string, taskId: number) {
-        console.log(taskId);
         return this.http.get<void>(SERVER_PATH + '/task/check', {
             headers: {
                 token: token
@@ -56,7 +55,6 @@ export class TaskService {
     }
 
     unCheck(token: string, taskId: number) {
-        console.log(taskId);
         return this.http.get<void>(SERVER_PATH + '/task/uncheck', {
             headers: {
                 token: token

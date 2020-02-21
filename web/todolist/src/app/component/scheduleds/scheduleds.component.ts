@@ -36,7 +36,11 @@ export class ScheduledsComponent implements OnInit {
                 this.taskService.getAll(t).subscribe(ts => {
                     this.tasks = ts;
                     this.scheduledService.getAll(t).subscribe(scheduleds => {
-                        this.scheduleds = scheduleds;
+                        scheduleds.forEach(sch => {
+                            if (sch.deleted === false) {
+                                this.scheduleds.push(sch);
+                            }
+                        });
                         this.scheduleds.forEach(scheduled => {
 
                             this.tasks.forEach(task => {

@@ -50,10 +50,8 @@ export class TaskInfoComponent implements OnInit {
     }
 
     deleteSchedule() {
-        this.tokenProvider.token.subscribe(t => {
-            this.scheduledService.delete(t, this.taskId).subscribe(() => {
+            this.scheduledService.delete(localStorage.getItem('token'), this.taskId).subscribe(() => {
                 this.router.navigate(['tasks']);
-            });
         });
     }
 

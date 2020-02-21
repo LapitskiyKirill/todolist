@@ -41,12 +41,16 @@ public class ScheduledActivityService {
     public void generateTodayScheduledActivities() {
         userRepository.findAll().stream()
                 .parallel()
-                .forEach(u -> scheduledService.getAll(u).stream()
-                        .parallel()
-                        .forEach(s -> scheduledService.getScheduledScheduledEventsInRange(s, DateRangeDto.dayOf(LocalDate.now())).stream()
-                                .parallel()
-                                .map(e -> new ScheduledActivity(e.scheduled, null, LocalDateTime.now()))
-                                .forEach(scheduledActivityRepository::save)));
+                .forEach(u -> {
+                    scheduledService.getAll(u).stream()
+                            .parallel()
+                            .forEach(s -> {
+                                scheduledService.getScheduledScheduledEventsInRange(s, DateRangeDto.dayOf(LocalDate.now())).stream()
+                                        .parallel()
+                                        .map(e -> new ScheduledActivity(e.scheduled, null, LocalDateTime.now()))
+                                        .forEach(scheduledActivityRepository::save);
+                            });
+                });
     }
 
     public void complete(User user, Long scheduledActivityId) {

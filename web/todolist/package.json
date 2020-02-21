@@ -9,7 +9,8 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "electron": "electron .",
-    "electron-build": "ng build --prod && electron ."
+    "electron-build": "ng build --prod && electron .",
+    "electron-exe": "electron-packager . --platform=win32 --arch=x64 --overwrite"
   },
   "main": "main.js",
   "private": true,
