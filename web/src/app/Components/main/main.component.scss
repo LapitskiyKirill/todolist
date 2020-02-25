@@ -1,0 +1,41 @@
+.overlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+fa-icon {
+  color: #79a2d6;
+  font-size: xx-large;
+}
+
+.menu, .exit {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.exit {
+  grid-column-start: 6;
+  grid-column-end: 7;
+  grid-row-start: 1;
+  grid-row-end: 2;
+}
+
+  fa-icon:hover {
+    color: #648cbb;
+    font-size: xx-large;
+    background-color: #c1c1c1;
+    padding: 10px;
+    border-radius: 5px;
+  }
+
+.container {
+  margin-top: -10px;
+  display: grid;
+  grid-template-columns: 10vw 10vw 10vw 10vw 10vw;
+  grid-template-rows: 100px auto;
+  background-color: #e0e0e0;
+  height: 120vh;
+  width: 60vw;
+}

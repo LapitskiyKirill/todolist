@@ -16,4 +16,20 @@ export class AuthService {
     return this.http.post<string>(SERVER_PATH + '/authenticate', authUser, {responseType: 'text' as 'json'});
 
   }
+
+  validate(token: string) {
+    return this.http.get(SERVER_PATH + '/authenticate/validate', {
+      params: {
+        token
+      }
+    });
+  }
+
+  deleteToken(token: string) {
+    return this.http.get(SERVER_PATH + '/token/delete', {
+      params: {
+        token
+      }
+    });
+  }
 }

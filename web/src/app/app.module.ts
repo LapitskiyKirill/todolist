@@ -6,18 +6,22 @@ import {RegisterComponent} from './Components/register/register.component';
 import {AppRoutingModule} from './app-routing.module';
 import {AuthComponent} from './Components/auth/auth.component';
 import {HttpClientModule} from '@angular/common/http';
+import {MainComponent} from './Components/main/main.component';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
     AppComponent,
     RegisterComponent,
-    AuthComponent
+    AuthComponent,
+    MainComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]
