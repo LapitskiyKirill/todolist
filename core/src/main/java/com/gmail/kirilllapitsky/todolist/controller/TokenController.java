@@ -19,7 +19,7 @@ public class TokenController {
         this.tokenService = tokenService;
     }
 
-    @GetMapping("delete")
+        @GetMapping("delete")
     public void delete(@RequestParam("token") String token) throws NoSuchEntityException {
        tokenService.delete(token);
     }
