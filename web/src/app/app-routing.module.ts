@@ -5,6 +5,7 @@ import {RegisterComponent} from './Components/register/register.component';
 import {AuthComponent} from './Components/auth/auth.component';
 import {MainComponent} from './Components/main/main.component';
 import {CategoriesComponent} from './Components/categories/categories.component';
+import {AllTasksComponent} from './Components/all-tasks/all-tasks.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,10 @@ const routes: Routes = [
       {
         path: 'categories',
         component: CategoriesComponent
+      },
+      {
+        path: 'alltasks',
+        component: AllTasksComponent
       }
     ]
   }

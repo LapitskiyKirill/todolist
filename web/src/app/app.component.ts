@@ -28,8 +28,8 @@ export class AppComponent {
     if (lsToken) {
       this.authService.validate(lsToken).subscribe(() => {
         localStorage.setItem('token', lsToken);
-        if (url === '/' || url === '/register' || url === '/auth') {
-          this.router.navigate(['/main']);
+        if (url === '/' || url === '/register' || url === '/auth' || url === '/main') {
+          this.router.navigate(['/main/alltasks']);
         } else {
           this.router.navigate([url]);
         }

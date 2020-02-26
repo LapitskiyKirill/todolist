@@ -9,6 +9,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {MainComponent} from './Components/main/main.component';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import { CategoriesComponent } from './Components/categories/categories.component';
+import { AllTasksComponent } from './Components/all-tasks/all-tasks.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { CategoriesComponent } from './Components/categories/categories.componen
     RegisterComponent,
     AuthComponent,
     MainComponent,
-    CategoriesComponent
+    CategoriesComponent,
+    AllTasksComponent
   ],
   imports: [
     BrowserModule,

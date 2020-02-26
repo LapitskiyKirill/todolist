@@ -1,5 +1,5 @@
 export enum MenuTabs {
   CATEGORIES,
   SCHEDULE,
-  TASKS
+  ALLTASKS
 }

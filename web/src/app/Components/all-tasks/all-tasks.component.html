@@ -1,0 +1,34 @@
+<div class="tasks-container">
+  <div class="task-bar">
+    <div class="content-bar">
+      <fa-icon [icon]="tasksIcon"></fa-icon>
+    </div>
+    <div class="complete-bar">
+      <fa-icon [icon]="clipCheckIcon"></fa-icon>
+    </div>
+    <div class="subtasks-bar">
+      <fa-icon [icon]="linkIcon"></fa-icon>
+    </div>
+  </div>
+  <div *ngFor="let task of tasks">
+    <div class="task">
+      <div class="content">
+        {{task.text}}
+      </div>
+      <div class="complete">
+        <div *ngIf="task.completed; else uncompleted">
+          <fa-icon class="completed" [icon]="checkIcon"></fa-icon>
+        </div>
+      </div>
+      <div class="subtasks">
+        {{task.subtasks.length}}
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #completed>
+  <fa-icon class="completed" [icon]="checkIcon"></fa-icon>
+</ng-template>
+<ng-template #uncompleted>
+  <fa-icon class="uncompleted" [icon]="timesIcon"></fa-icon>
+</ng-template>

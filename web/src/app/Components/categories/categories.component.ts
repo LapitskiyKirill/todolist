@@ -6,10 +6,10 @@ import {faPlus} from '@fortawesome/free-solid-svg-icons/faPlus';
 @Component({
   selector: 'app-categories',
   templateUrl: './categories.component.html',
-  styleUrls: ['./categories.component.css']
+  styleUrls: ['./categories.component.scss']
 })
 export class CategoriesComponent implements OnInit {
-  private categories: Category[];
+  categories: Category[];
   plusIcon = faPlus;
 
   constructor(private categoryService: CategoriesService) {

@@ -40,9 +40,4 @@ export class MainComponent implements OnInit {
       this.router.navigate(['/auth']);
     });
   }
-
-  getCurrentTab(): MenuTabs {
-    const tab = MenuTabs[this.router.url.split('/').slice(-1)[0].toUpperCase()];
-    return tab ? tab : MenuTabs.TASKS;
-  }
 }
