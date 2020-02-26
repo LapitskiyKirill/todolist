@@ -6,6 +6,26 @@
     <div class="exit">
       <fa-icon [icon]="signOutIcon" (click)="exit()"></fa-icon>
     </div>
+    <div class="tab" id="1" (click)="changeTab('categories')"
+         [ngClass]="{'active': tab === 1}">
+      <div class="text">
+        <fa-icon [icon]="folderIcon"></fa-icon>
+      </div>
+    </div>
+    <div class="tab" id="2" (click)="changeTab('tasks')"
+         [ngClass]="{'active': tab === 1}">
+      <div class="text">
+        <fa-icon [icon]="clipboardIcon"></fa-icon>
+      </div>
+    </div>
+    <div class="tab" id="3" (click)="changeTab('schedule')"
+         [ngClass]="{'active': tab === 1}">
+      <div class="text">
+        <fa-icon [icon]="calendarIcon"></fa-icon>
+      </div>
+    </div>
+    <div class="component-container">
+      <router-outlet></router-outlet>
+    </div>
   </div>
-
 </div>

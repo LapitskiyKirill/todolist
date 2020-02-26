@@ -18,14 +18,12 @@ export class AppComponent {
       (event: any) => {
         if (event instanceof NavigationEnd) {
           this.autoLogin(event.url);
-
         }
       }
     );
   }
 
   autoLogin(url: string) {
-    console.log(localStorage.getItem('token'));
     const lsToken = localStorage.getItem('token');
     if (lsToken) {
       this.authService.validate(lsToken).subscribe(() => {
@@ -35,7 +33,7 @@ export class AppComponent {
         } else {
           this.router.navigate([url]);
         }
-      }, e => {
+      }, () => {
         localStorage.removeItem('token');
         this.router.navigate(['/auth']);
       });

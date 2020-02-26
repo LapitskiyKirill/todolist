@@ -1,7 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {faBars, faPlusSquare, faSignOutAlt} from '@fortawesome/free-solid-svg-icons';
+import {faBars, faSignOutAlt, faCalendarAlt, faClipboardList} from '@fortawesome/free-solid-svg-icons';
+import {faFolder} from '@fortawesome/free-regular-svg-icons/faFolder';
 import {AuthService} from '../../Services/auth.service';
 import {Router} from '@angular/router';
+import {MenuTabs} from './Tabs';
 
 @Component({
   selector: 'app-main',
@@ -10,8 +12,12 @@ import {Router} from '@angular/router';
 })
 export class MainComponent implements OnInit {
   barIcon = faBars;
-  plusIcon = faPlusSquare;
   signOutIcon = faSignOutAlt;
+  calendarIcon = faCalendarAlt;
+  clipboardIcon = faClipboardList;
+  folderIcon = faFolder;
+  tab: MenuTabs;
+
 
   constructor(
     private router: Router,
@@ -22,10 +28,21 @@ export class MainComponent implements OnInit {
   ngOnInit() {
   }
 
+  changeTab(tab: string) {
+    this.tab = MenuTabs[tab.toUpperCase()];
+    this.router.navigate(['/main/' + tab.toLowerCase()]);
+  }
+
   exit() {
     this.authService.deleteToken(localStorage.getItem('token')).subscribe(() => {
+      console.log('exit');
       localStorage.removeItem('token');
       this.router.navigate(['/auth']);
     });
+  }
+
+  getCurrentTab(): MenuTabs {
+    const tab = MenuTabs[this.router.url.split('/').slice(-1)[0].toUpperCase()];
+    return tab ? tab : MenuTabs.TASKS;
   }
 }

@@ -5,7 +5,7 @@
 }
 
 fa-icon {
-  color: #79a2d6;
+  color: #5bc26a;
   font-size: xx-large;
 }
 
@@ -16,26 +16,57 @@ fa-icon {
 }
 
 .exit {
-  grid-column-start: 6;
-  grid-column-end: 7;
+  grid-column-start: 5;
+  grid-column-end: 6;
   grid-row-start: 1;
   grid-row-end: 2;
 }
 
-  fa-icon:hover {
-    color: #648cbb;
-    font-size: xx-large;
-    background-color: #c1c1c1;
-    padding: 10px;
-    border-radius: 5px;
-  }
+.menu {
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 1;
+  grid-row-end: 2;
+}
+
+fa-icon:hover {
+  color: #648cbb;
+  font-size: xx-large;
+  background-color: #c1c1c1;
+  padding: 10px;
+  border-radius: 5px;
+}
 
 .container {
   margin-top: -10px;
   display: grid;
-  grid-template-columns: 10vw 10vw 10vw 10vw 10vw;
+  grid-template-columns: 12vw 12vw 12vw 12vw 12vw;
   grid-template-rows: 100px auto;
   background-color: #e0e0e0;
   height: 120vh;
   width: 60vw;
 }
+
+.tab {
+  grid-row-start: 1;
+  grid-row-end: 2;
+}
+
+.tab {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.component-container {
+  grid-row-start: 2;
+  grid-column-start: 1;
+  grid-column-end: 6;
+  display: flex;
+  justify-content: center;
+}
+
+router-outlet {
+  display: none;
+}
+

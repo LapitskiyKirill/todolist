@@ -4,6 +4,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {RegisterComponent} from './Components/register/register.component';
 import {AuthComponent} from './Components/auth/auth.component';
 import {MainComponent} from './Components/main/main.component';
+import {CategoriesComponent} from './Components/categories/categories.component';
 
 const routes: Routes = [
   {
@@ -16,7 +17,13 @@ const routes: Routes = [
   },
   {
     path: 'main',
-    component: MainComponent
+    component: MainComponent,
+    children: [
+      {
+        path: 'categories',
+        component: CategoriesComponent
+      }
+    ]
   }
 ];
 

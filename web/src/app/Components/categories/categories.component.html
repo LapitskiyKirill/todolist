@@ -1,0 +1,10 @@
+<div class="categories-container">
+  <div class="category" *ngFor="let category of categories">
+    <div class="value">
+      {{category.value}}
+    </div>
+  </div>
+  <div class="category add-category">
+    <fa-icon [icon]="plusIcon"></fa-icon>
+  </div>
+</div>
