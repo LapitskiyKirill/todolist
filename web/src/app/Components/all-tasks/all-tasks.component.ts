@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {faCheck, faClipboardCheck, faLink, faPlus, faTasks, faTimes} from '@fortawesome/free-solid-svg-icons';
+import {faCheck, faClipboardCheck, faLink, faPlus, faTasks, faTimes, faEdit} from '@fortawesome/free-solid-svg-icons';
 import {Task} from 'src/app/Entities/Task';
 import {TasksService} from '../../Services/tasks.service';
 
@@ -17,6 +17,7 @@ export class AllTasksComponent implements OnInit {
   clipCheckIcon = faClipboardCheck;
   tasksIcon = faTasks;
   timesIcon = faTimes;
+  editIcon = faEdit;
 
 
   constructor(

@@ -8,12 +8,12 @@
   font-family: Arial;
   font-size: x-large;
   display: grid;
-  grid-template-columns: 20vw 20vw 20vw;
+  grid-template-columns: 20vw 20vw 15vw 5vw;
   padding-top: 5px;
   padding-bottom: 5px;
 }
 
-.complete, .complete-bar, .subtasks, .subtasks-bar, .content-bar {
+.complete, .complete-bar, .subtasks, .subtasks-bar, .content-bar, .edit {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -25,10 +25,30 @@
   align-items: center;
 }
 
+.tasks-container :hover {
+  background-color: #c1c1c1;
+}
+
 .completed {
   color: green;
 }
 
 .uncompleted {
   color: red;
+}
+
+.tasks-container .edit {
+  visibility: hidden;
+}
+
+.tasks-container :hover {
+  .edit {
+    visibility: visible;
+  }
+}
+
+.edit :hover {
+  background-color: #9d9d9d;
+  border-radius: 5px;
+  padding: 3px 3px 7px 7px;
 }

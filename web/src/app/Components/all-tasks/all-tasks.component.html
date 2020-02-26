@@ -10,7 +10,7 @@
       <fa-icon [icon]="linkIcon"></fa-icon>
     </div>
   </div>
-  <div *ngFor="let task of tasks">
+  <div class="tasks-container" *ngFor="let task of tasks">
     <div class="task">
       <div class="content">
         {{task.text}}
@@ -22,6 +22,9 @@
       </div>
       <div class="subtasks">
         {{task.subtasks.length}}
+      </div>
+      <div class="edit">
+        <fa-icon [icon]="editIcon"></fa-icon>
       </div>
     </div>
   </div>
