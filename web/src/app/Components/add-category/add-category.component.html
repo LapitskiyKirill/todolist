@@ -1,0 +1,10 @@
+<div class="container">
+  <div class="text">
+    Enter new folder name
+  </div>
+  <input type="text" placeholder="Folder name" required
+         minlength="4" [(ngModel)]="newCategory.value" name="value">
+  <div class="submit">
+    <button class="button" type="submit" (click)="createCategory()">Create</button>
+  </div>
+</div>

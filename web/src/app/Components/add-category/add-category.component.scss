@@ -1,0 +1,31 @@
+.container {
+  display: grid;
+  grid-template-rows: 100px 50px 50px;
+}
+
+.text {
+  font-size: xx-large;
+  font-family: Arial;
+  padding: 25px;
+}
+
+input {
+  border-radius: 5px;
+  font-size: x-large;
+  font-family: Arial;
+}
+
+.submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+button {
+  border-radius: 10px;
+  background: #a3a3a3;
+  width: 100px;
+  font-family: Arial;
+  font-size: large;
+}

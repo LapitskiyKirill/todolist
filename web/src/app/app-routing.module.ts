@@ -6,6 +6,7 @@ import {AuthComponent} from './Components/auth/auth.component';
 import {MainComponent} from './Components/main/main.component';
 import {CategoriesComponent} from './Components/categories/categories.component';
 import {AllTasksComponent} from './Components/all-tasks/all-tasks.component';
+import {AddCategoryComponent} from './Components/add-category/add-category.component';
 
 const routes: Routes = [
   {
@@ -27,6 +28,10 @@ const routes: Routes = [
       {
         path: 'alltasks',
         component: AllTasksComponent
+      },
+      {
+        path: 'addcategory',
+        component: AddCategoryComponent
       }
     ]
   }

@@ -19,7 +19,9 @@ export class AllTasksComponent implements OnInit {
   timesIcon = faTimes;
 
 
-  constructor(private taskService: TasksService) {
+  constructor(
+    private taskService: TasksService
+  ) {
     this.taskService.getAllTasks(localStorage.getItem('token')).subscribe(ts => {
       this.tasks = ts;
       console.log(this.tasks);
